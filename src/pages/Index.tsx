@@ -5,6 +5,11 @@ import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Slider } from '@/components/ui/slider'
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
+import { Label } from '@/components/ui/label'
+import { Textarea } from '@/components/ui/textarea'
+import { Separator } from '@/components/ui/separator'
 import Icon from '@/components/ui/icon'
 
 interface Product {
@@ -18,6 +23,19 @@ interface Product {
   size: string
   image: string
   description: string
+}
+
+interface CartItem {
+  product: Product
+  quantity: number
+}
+
+interface OrderForm {
+  name: string
+  email: string
+  phone: string
+  address: string
+  comment: string
 }
 
 const products: Product[] = [
@@ -93,10 +111,20 @@ const products: Product[] = [
 function Index() {
   const [filteredProducts, setFilteredProducts] = useState(products)
   const [priceRange, setPriceRange] = useState([0, 100000])
-  const [selectedStyle, setSelectedStyle] = useState<string>("")
-  const [selectedMaterial, setSelectedMaterial] = useState<string>("")
-  const [selectedSize, setSelectedSize] = useState<string>("")
+  const [selectedStyle, setSelectedStyle] = useState<string>("all")
+  const [selectedMaterial, setSelectedMaterial] = useState<string>("all")
+  const [selectedSize, setSelectedSize] = useState<string>("all")
   const [searchTerm, setSearchTerm] = useState("")
+  const [cart, setCart] = useState<CartItem[]>([])
+  const [isCartOpen, setIsCartOpen] = useState(false)
+  const [isOrderDialogOpen, setIsOrderDialogOpen] = useState(false)
+  const [orderForm, setOrderForm] = useState<OrderForm>({
+    name: '',
+    email: '',
+    phone: '',
+    address: '',
+    comment: ''
+  })
 
   const applyFilters = () => {
     let filtered = products.filter(product => {
@@ -120,6 +148,61 @@ function Index() {
     setFilteredProducts(products)
   }
 
+  const addToCart = (product: Product) => {
+    setCart(prevCart => {
+      const existingItem = prevCart.find(item => item.product.id === product.id)
+      if (existingItem) {
+        return prevCart.map(item =>
+          item.product.id === product.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        )
+      }
+      return [...prevCart, { product, quantity: 1 }]
+    })
+  }
+
+  const removeFromCart = (productId: number) => {
+    setCart(prevCart => prevCart.filter(item => item.product.id !== productId))
+  }
+
+  const updateCartQuantity = (productId: number, quantity: number) => {
+    if (quantity <= 0) {
+      removeFromCart(productId)
+      return
+    }
+    setCart(prevCart =>
+      prevCart.map(item =>
+        item.product.id === productId
+          ? { ...item, quantity }
+          : item
+      )
+    )
+  }
+
+  const getTotalPrice = () => {
+    return cart.reduce((total, item) => total + item.product.price * item.quantity, 0)
+  }
+
+  const getTotalItems = () => {
+    return cart.reduce((total, item) => total + item.quantity, 0)
+  }
+
+  const handleOrderSubmit = () => {
+    // Здесь можно добавить отправку заказа на сервер
+    alert(`Спасибо за заказ, ${orderForm.name}! Мы свяжемся с вами в ближайшее время.`)
+    setCart([])
+    setIsOrderDialogOpen(false)
+    setIsCartOpen(false)
+    setOrderForm({
+      name: '',
+      email: '',
+      phone: '',
+      address: '',
+      comment: ''
+    })
+  }
+
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
@@ -138,7 +221,164 @@ function Index() {
             </div>
             <div className="flex items-center space-x-4">
               <Icon name="Search" size={20} className="text-muted-foreground" />
-              <Icon name="ShoppingBag" size={20} className="text-muted-foreground" />
+              <Sheet open={isCartOpen} onOpenChange={setIsCartOpen}>
+                <SheetTrigger asChild>
+                  <Button variant="ghost" size="sm" className="relative">
+                    <Icon name="ShoppingBag" size={20} className="text-muted-foreground" />
+                    {getTotalItems() > 0 && (
+                      <Badge className="absolute -top-2 -right-2 h-6 w-6 rounded-full p-0 flex items-center justify-center bg-vintage-chocolate text-white text-xs">
+                        {getTotalItems()}
+                      </Badge>
+                    )}
+                  </Button>
+                </SheetTrigger>
+                <SheetContent className="w-[400px] sm:w-[540px]">
+                  <SheetHeader>
+                    <SheetTitle>Корзина покупок</SheetTitle>
+                    <SheetDescription>
+                      {cart.length === 0 ? "Ваша корзина пуста" : `${getTotalItems()} товар(ов) на сумму ${getTotalPrice().toLocaleString()} ₽`}
+                    </SheetDescription>
+                  </SheetHeader>
+                  <div className="mt-8">
+                    {cart.length === 0 ? (
+                      <div className="text-center py-8">
+                        <Icon name="ShoppingBag" size={48} className="mx-auto text-muted-foreground mb-4" />
+                        <p className="text-muted-foreground">Добавьте товары в корзину</p>
+                      </div>
+                    ) : (
+                      <>
+                        <div className="space-y-4 max-h-[60vh] overflow-y-auto">
+                          {cart.map((item) => (
+                            <div key={item.product.id} className="flex items-center space-x-4 bg-card p-4 rounded-lg">
+                              <img
+                                src={item.product.image}
+                                alt={item.product.name}
+                                className="h-16 w-16 object-cover rounded"
+                              />
+                              <div className="flex-1">
+                                <h4 className="font-medium text-sm">{item.product.name}</h4>
+                                <p className="text-vintage-chocolate font-bold">
+                                  {item.product.price.toLocaleString()} ₽
+                                </p>
+                              </div>
+                              <div className="flex items-center space-x-2">
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  onClick={() => updateCartQuantity(item.product.id, item.quantity - 1)}
+                                >
+                                  <Icon name="Minus" size={16} />
+                                </Button>
+                                <span className="w-8 text-center">{item.quantity}</span>
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  onClick={() => updateCartQuantity(item.product.id, item.quantity + 1)}
+                                >
+                                  <Icon name="Plus" size={16} />
+                                </Button>
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  onClick={() => removeFromCart(item.product.id)}
+                                >
+                                  <Icon name="Trash2" size={16} />
+                                </Button>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                        <Separator className="my-4" />
+                        <div className="space-y-4">
+                          <div className="flex justify-between text-lg font-bold">
+                            <span>Итого:</span>
+                            <span>{getTotalPrice().toLocaleString()} ₽</span>
+                          </div>
+                          <Dialog open={isOrderDialogOpen} onOpenChange={setIsOrderDialogOpen}>
+                            <DialogTrigger asChild>
+                              <Button className="w-full bg-vintage-chocolate hover:bg-vintage-dark-brown">
+                                Оформить заказ
+                              </Button>
+                            </DialogTrigger>
+                            <DialogContent className="sm:max-w-[425px]">
+                              <DialogHeader>
+                                <DialogTitle>Оформление заказа</DialogTitle>
+                                <DialogDescription>
+                                  Заполните данные для доставки вашего заказа
+                                </DialogDescription>
+                              </DialogHeader>
+                              <div className="grid gap-4 py-4">
+                                <div className="grid gap-2">
+                                  <Label htmlFor="name">Имя</Label>
+                                  <Input
+                                    id="name"
+                                    value={orderForm.name}
+                                    onChange={(e) => setOrderForm({...orderForm, name: e.target.value})}
+                                    placeholder="Ваше имя"
+                                  />
+                                </div>
+                                <div className="grid gap-2">
+                                  <Label htmlFor="email">Email</Label>
+                                  <Input
+                                    id="email"
+                                    type="email"
+                                    value={orderForm.email}
+                                    onChange={(e) => setOrderForm({...orderForm, email: e.target.value})}
+                                    placeholder="your@email.com"
+                                  />
+                                </div>
+                                <div className="grid gap-2">
+                                  <Label htmlFor="phone">Телефон</Label>
+                                  <Input
+                                    id="phone"
+                                    value={orderForm.phone}
+                                    onChange={(e) => setOrderForm({...orderForm, phone: e.target.value})}
+                                    placeholder="+7 (___) ___-__-__"
+                                  />
+                                </div>
+                                <div className="grid gap-2">
+                                  <Label htmlFor="address">Адрес доставки</Label>
+                                  <Textarea
+                                    id="address"
+                                    value={orderForm.address}
+                                    onChange={(e) => setOrderForm({...orderForm, address: e.target.value})}
+                                    placeholder="Введите полный адрес доставки"
+                                  />
+                                </div>
+                                <div className="grid gap-2">
+                                  <Label htmlFor="comment">Комментарий к заказу</Label>
+                                  <Textarea
+                                    id="comment"
+                                    value={orderForm.comment}
+                                    onChange={(e) => setOrderForm({...orderForm, comment: e.target.value})}
+                                    placeholder="Дополнительные пожелания (необязательно)"
+                                  />
+                                </div>
+                              </div>
+                              <div className="bg-muted p-4 rounded-lg">
+                                <div className="flex justify-between font-bold text-lg">
+                                  <span>К оплате:</span>
+                                  <span>{getTotalPrice().toLocaleString()} ₽</span>
+                                </div>
+                              </div>
+                              <DialogFooter>
+                                <Button
+                                  type="submit"
+                                  onClick={handleOrderSubmit}
+                                  className="bg-vintage-chocolate hover:bg-vintage-dark-brown"
+                                  disabled={!orderForm.name || !orderForm.email || !orderForm.phone || !orderForm.address}
+                                >
+                                  Подтвердить заказ
+                                </Button>
+                              </DialogFooter>
+                            </DialogContent>
+                          </Dialog>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                </SheetContent>
+              </Sheet>
               <Icon name="User" size={20} className="text-muted-foreground" />
             </div>
           </div>
@@ -308,7 +548,10 @@ function Index() {
                       </span>
                     )}
                   </div>
-                  <Button className="bg-vintage-chocolate hover:bg-vintage-dark-brown">
+                  <Button 
+                    className="bg-vintage-chocolate hover:bg-vintage-dark-brown"
+                    onClick={() => addToCart(product)}
+                  >
                     <Icon name="ShoppingCart" size={16} className="mr-2" />
                     В корзину
                   </Button>
