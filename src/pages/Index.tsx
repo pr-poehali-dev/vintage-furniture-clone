@@ -1041,64 +1041,82 @@ function Index() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-12">
             {filteredProducts.map((product) => (
               <div
                 key={product.id}
                 className="group cursor-pointer"
                 onClick={() => openProductDetails(product)}
               >
-                <div className="relative overflow-hidden bg-white rounded-sm">
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="w-full aspect-[3/4] object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                  {product.originalPrice && (
-                    <div className="absolute top-3 left-3">
-                      <span className="bg-black text-white text-xs px-2 py-1 font-medium">
-                        {t.sale}
-                      </span>
+                {/* Image Container - Lone Fox Style */}
+                <div className="relative overflow-hidden">
+                  <div className="relative">
+                    <img
+                      src={product.image}
+                      alt={product.name}
+                      className="w-full aspect-[4/5] object-cover transition-all duration-500 ease-out group-hover:brightness-95"
+                    />
+                    
+                    {/* Sale Badge - Refined */}
+                    {product.originalPrice && (
+                      <div className="absolute top-4 left-4">
+                        <div className="bg-foreground text-background text-xs px-2.5 py-1 font-normal tracking-wide">
+                          SALE
+                        </div>
+                      </div>
+                    )}
+                    
+                    {/* Wishlist Button - Subtle */}
+                    <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <button
+                        className="w-10 h-10 bg-background/80 backdrop-blur-sm border border-border/20 rounded-full flex items-center justify-center hover:bg-background transition-colors"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <Icon name="Heart" size={16} className="text-foreground" />
+                      </button>
                     </div>
-                  )}
-                  <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <Button
-                      size="sm"
-                      variant="ghost"
-                      className="h-8 w-8 p-0 bg-white/90 hover:bg-white rounded-full"
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      <Icon name="Heart" size={14} />
-                    </Button>
-                  </div>
-
-                  {/* Quick Add Button - appears on hover */}
-                  <div className="absolute bottom-3 left-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <Button
-                      className="w-full bg-black hover:bg-gray-800 text-white h-10 text-sm font-medium"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        addToCart(product);
-                      }}
-                    >
-                      {t.addToCart}
-                    </Button>
+                    
+                    {/* Quick Add - Elegant appearance */}
+                    <div className="absolute inset-x-4 bottom-4 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+                      <button
+                        className="w-full h-12 bg-foreground text-background text-sm font-normal tracking-wide hover:bg-foreground/90 transition-colors"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          addToCart(product);
+                        }}
+                      >
+                        ADD TO BAG
+                      </button>
+                    </div>
+                    
+                    {/* Subtle overlay on hover */}
+                    <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   </div>
                 </div>
 
-                <div className="pt-3 space-y-1">
-                  <h3 className="font-medium text-sm leading-tight group-hover:text-gray-600 transition-colors">
+                {/* Product Info - Minimal & Clean */}
+                <div className="pt-4 space-y-1">
+                  <h3 className="text-sm font-normal text-foreground tracking-wide leading-relaxed">
                     {product.name}
                   </h3>
-                  <div className="flex items-center gap-2">
-                    <span className="font-medium text-sm">
+                  <div className="flex items-center gap-3 pt-1">
+                    <span className="text-sm font-normal text-foreground">
                       {product.price.toLocaleString()} ₽
                     </span>
                     {product.originalPrice && (
-                      <span className="text-xs text-muted-foreground line-through">
+                      <span className="text-sm text-muted-foreground line-through">
                         {product.originalPrice.toLocaleString()} ₽
                       </span>
                     )}
+                  </div>
+                  
+                  {/* Color Options - показываем только при наведении */}
+                  <div className="pt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="flex items-center space-x-1">
+                      <div className="w-4 h-4 bg-neutral-800 rounded-full border border-border/30"></div>
+                      <div className="w-4 h-4 bg-neutral-600 rounded-full border border-border/30"></div>
+                      <div className="w-4 h-4 bg-neutral-400 rounded-full border border-border/30"></div>
+                    </div>
                   </div>
                 </div>
               </div>
