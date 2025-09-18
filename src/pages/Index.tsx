@@ -108,6 +108,183 @@ const products: Product[] = [
   }
 ]
 
+const translations = {
+  ru: {
+    siteName: "ВИНТАЖНАЯ МЕБЕЛЬ",
+    shop: "МАГАЗИН",
+    collections: "КОЛЛЕКЦИИ",
+    about: "О НАС",
+    contact: "КОНТАКТЫ",
+    heroTitle: "ВИНТАЖНАЯ МЕБЕЛЬ",
+    heroSubtitle: "Тщательно отобранные предметы с богатой историей, восстановленные с вниманием к каждой детали.",
+    shopNow: "КУПИТЬ СЕЙЧАС",
+    items: "ТОВАРОВ",
+    sortBy: "СОРТИРОВАТЬ",
+    default: "ПО УМОЛЧАНИЮ",
+    name: "ПО НАЗВАНИЮ",
+    priceLowHigh: "ЦЕНА: ОТ НИЗКОЙ К ВЫСОКОЙ",
+    priceHighLow: "ЦЕНА: ОТ ВЫСОКОЙ К НИЗКОЙ",
+    addToCart: "ДОБАВИТЬ В КОРЗИНУ",
+    quickOrder: "БЫСТРЫЙ ЗАКАЗ",
+    search: "ПОИСК",
+    style: "СТИЛЬ",
+    material: "МАТЕРИАЛ",
+    size: "РАЗМЕР",
+    apply: "ПРИМЕНИТЬ",
+    reset: "СБРОС",
+    cart: "КОРЗИНА",
+    emptyCart: "Ваша корзина пуста",
+    total: "ИТОГО",
+    checkout: "ОФОРМИТЬ ЗАКАЗ",
+    sale: "СКИДКА"
+  },
+  en: {
+    siteName: "VINTAGE FURNITURE",
+    shop: "SHOP",
+    collections: "COLLECTIONS",
+    about: "ABOUT",
+    contact: "CONTACT",
+    heroTitle: "VINTAGE FURNITURE",
+    heroSubtitle: "Carefully curated pieces with rich history, restored with attention to every detail.",
+    shopNow: "SHOP NOW",
+    items: "ITEMS",
+    sortBy: "SORT BY",
+    default: "DEFAULT",
+    name: "NAME",
+    priceLowHigh: "PRICE: LOW TO HIGH",
+    priceHighLow: "PRICE: HIGH TO LOW",
+    addToCart: "ADD TO CART",
+    quickOrder: "QUICK ORDER",
+    search: "SEARCH",
+    style: "STYLE",
+    material: "MATERIAL",
+    size: "SIZE",
+    apply: "APPLY",
+    reset: "RESET",
+    cart: "CART",
+    emptyCart: "Your cart is empty",
+    total: "TOTAL",
+    checkout: "CHECKOUT",
+    sale: "SALE"
+  },
+  de: {
+    siteName: "VINTAGE MÖBEL",
+    shop: "GESCHÄFT",
+    collections: "KOLLEKTIONEN",
+    about: "ÜBER UNS",
+    contact: "KONTAKT",
+    heroTitle: "VINTAGE MÖBEL",
+    heroSubtitle: "Sorgfältig kuratierte Stücke mit reicher Geschichte, restauriert mit Liebe zum Detail.",
+    shopNow: "JETZT KAUFEN",
+    items: "ARTIKEL",
+    sortBy: "SORTIEREN",
+    default: "STANDARD",
+    name: "NAME",
+    priceLowHigh: "PREIS: NIEDRIG BIS HOCH",
+    priceHighLow: "PREIS: HOCH BIS NIEDRIG",
+    addToCart: "IN DEN WARENKORB",
+    quickOrder: "SCHNELLBESTELLUNG",
+    search: "SUCHEN",
+    style: "STIL",
+    material: "MATERIAL",
+    size: "GRÖßE",
+    apply: "ANWENDEN",
+    reset: "ZURÜCKSETZEN",
+    cart: "WARENKORB",
+    emptyCart: "Ihr Warenkorb ist leer",
+    total: "GESAMT",
+    checkout: "KASSE",
+    sale: "ANGEBOT"
+  },
+  fr: {
+    siteName: "MOBILIER VINTAGE",
+    shop: "BOUTIQUE",
+    collections: "COLLECTIONS",
+    about: "À PROPOS",
+    contact: "CONTACT",
+    heroTitle: "MOBILIER VINTAGE",
+    heroSubtitle: "Pièces soigneusement sélectionnées avec une riche histoire, restaurées avec attention aux détails.",
+    shopNow: "ACHETER MAINTENANT",
+    items: "ARTICLES",
+    sortBy: "TRIER PAR",
+    default: "PAR DÉFAUT",
+    name: "NOM",
+    priceLowHigh: "PRIX: DU PLUS BAS AU PLUS HAUT",
+    priceHighLow: "PRIX: DU PLUS HAUT AU PLUS BAS",
+    addToCart: "AJOUTER AU PANIER",
+    quickOrder: "COMMANDE RAPIDE",
+    search: "RECHERCHER",
+    style: "STYLE",
+    material: "MATÉRIAU",
+    size: "TAILLE",
+    apply: "APPLIQUER",
+    reset: "RÉINITIALISER",
+    cart: "PANIER",
+    emptyCart: "Votre panier est vide",
+    total: "TOTAL",
+    checkout: "COMMANDER",
+    sale: "SOLDE"
+  },
+  es: {
+    siteName: "MUEBLES VINTAGE",
+    shop: "TIENDA",
+    collections: "COLECCIONES",
+    about: "ACERCA DE",
+    contact: "CONTACTO",
+    heroTitle: "MUEBLES VINTAGE",
+    heroSubtitle: "Piezas cuidadosamente seleccionadas con rica historia, restauradas con atención al detalle.",
+    shopNow: "COMPRAR AHORA",
+    items: "ARTÍCULOS",
+    sortBy: "ORDENAR POR",
+    default: "PREDETERMINADO",
+    name: "NOMBRE",
+    priceLowHigh: "PRECIO: DE MENOR A MAYOR",
+    priceHighLow: "PRECIO: DE MAYOR A MENOR",
+    addToCart: "AÑADIR AL CARRITO",
+    quickOrder: "PEDIDO RÁPIDO",
+    search: "BUSCAR",
+    style: "ESTILO",
+    material: "MATERIAL",
+    size: "TAMAÑO",
+    apply: "APLICAR",
+    reset: "RESTABLECER",
+    cart: "CARRITO",
+    emptyCart: "Tu carrito está vacío",
+    total: "TOTAL",
+    checkout: "FINALIZAR COMPRA",
+    sale: "OFERTA"
+  },
+  it: {
+    siteName: "MOBILI VINTAGE",
+    shop: "NEGOZIO",
+    collections: "COLLEZIONI",
+    about: "CHI SIAMO",
+    contact: "CONTATTO",
+    heroTitle: "MOBILI VINTAGE",
+    heroSubtitle: "Pezzi accuratamente selezionati con una ricca storia, restaurati con attenzione ai dettagli.",
+    shopNow: "ACQUISTA ORA",
+    items: "ARTICOLI",
+    sortBy: "ORDINA PER",
+    default: "PREDEFINITO",
+    name: "NOME",
+    priceLowHigh: "PREZZO: DAL PIÙ BASSO AL PIÙ ALTO",
+    priceHighLow: "PREZZO: DAL PIÙ ALTO AL PIÙ BASSO",
+    addToCart: "AGGIUNGI AL CARRELLO",
+    quickOrder: "ORDINE VELOCE",
+    search: "CERCA",
+    style: "STILE",
+    material: "MATERIALE",
+    size: "DIMENSIONE",
+    apply: "APPLICA",
+    reset: "RIPRISTINA",
+    cart: "CARRELLO",
+    emptyCart: "Il tuo carrello è vuoto",
+    total: "TOTALE",
+    checkout: "PROCEDI ALL'ACQUISTO",
+    sale: "SALDO"
+  }
+}
+
 function Index() {
   const [filteredProducts, setFilteredProducts] = useState(products)
   const [priceRange, setPriceRange] = useState([0, 100000])
@@ -116,9 +293,21 @@ function Index() {
   const [selectedSize, setSelectedSize] = useState<string>("all")
   const [searchTerm, setSearchTerm] = useState("")
   const [sortBy, setSortBy] = useState<string>("default")
+  const [language, setLanguage] = useState<string>("ru")
   const [cart, setCart] = useState<CartItem[]>([])
   const [isCartOpen, setIsCartOpen] = useState(false)
   const [isOrderDialogOpen, setIsOrderDialogOpen] = useState(false)
+  
+  const t = translations[language as keyof typeof translations] || translations.ru
+  
+  const languages = [
+    { code: 'ru', name: 'Русский', flag: '🇷🇺' },
+    { code: 'en', name: 'English', flag: '🇬🇧' },
+    { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
+    { code: 'fr', name: 'Français', flag: '🇫🇷' },
+    { code: 'es', name: 'Español', flag: '🇪🇸' },
+    { code: 'it', name: 'Italiano', flag: '🇮🇹' }
+  ]
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
   const [isProductDialogOpen, setIsProductDialogOpen] = useState(false)
   const [orderForm, setOrderForm] = useState<OrderForm>({
@@ -228,15 +417,33 @@ function Index() {
         <div className="max-w-7xl mx-auto px-4 py-5">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-12">
-              <h1 className="text-xl font-normal tracking-wider text-foreground">VINTAGE FURNITURE</h1>
+              <h1 className="text-xl font-normal tracking-wider text-foreground">{t.siteName}</h1>
               <nav className="hidden lg:flex space-x-8">
-                <a href="#" className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors tracking-wide">SHOP</a>
-                <a href="#" className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors tracking-wide">COLLECTIONS</a>
-                <a href="#" className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors tracking-wide">ABOUT</a>
-                <a href="#" className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors tracking-wide">CONTACT</a>
+                <a href="#" className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors tracking-wide">{t.shop}</a>
+                <a href="#" className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors tracking-wide">{t.collections}</a>
+                <a href="#" className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors tracking-wide">{t.about}</a>
+                <a href="#" className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors tracking-wide">{t.contact}</a>
               </nav>
             </div>
             <div className="flex items-center space-x-5">
+              {/* Language Selector */}
+              <Select value={language} onValueChange={setLanguage}>
+                <SelectTrigger className="w-16 h-8 border-none bg-transparent p-0 focus:ring-0">
+                  <SelectValue>
+                    <span className="text-lg">{languages.find(lang => lang.code === language)?.flag}</span>
+                  </SelectValue>
+                </SelectTrigger>
+                <SelectContent>
+                  {languages.map((lang) => (
+                    <SelectItem key={lang.code} value={lang.code} className="flex items-center">
+                      <div className="flex items-center space-x-2">
+                        <span className="text-lg">{lang.flag}</span>
+                        <span className="text-sm">{lang.name}</span>
+                      </div>
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
               <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-transparent">
                 <Icon name="Search" size={18} className="text-foreground/80" />
               </Button>
@@ -253,9 +460,9 @@ function Index() {
                 </SheetTrigger>
                 <SheetContent className="w-[400px] sm:w-[540px]">
                   <SheetHeader>
-                    <SheetTitle>Корзина покупок</SheetTitle>
+                    <SheetTitle>{t.cart}</SheetTitle>
                     <SheetDescription>
-                      {cart.length === 0 ? "Ваша корзина пуста" : `${getTotalItems()} товар(ов) на сумму ${getTotalPrice().toLocaleString()} ₽`}
+                      {cart.length === 0 ? t.emptyCart : `${getTotalItems()} товар(ов) на сумму ${getTotalPrice().toLocaleString()} ₽`}
                     </SheetDescription>
                   </SheetHeader>
                   <div className="mt-8">
@@ -310,13 +517,13 @@ function Index() {
                         <Separator className="my-4" />
                         <div className="space-y-4">
                           <div className="flex justify-between text-lg font-bold">
-                            <span>Итого:</span>
+                            <span>{t.total}:</span>
                             <span>{getTotalPrice().toLocaleString()} ₽</span>
                           </div>
                           <Dialog open={isOrderDialogOpen} onOpenChange={setIsOrderDialogOpen}>
                             <DialogTrigger asChild>
                               <Button className="w-full bg-vintage-chocolate hover:bg-vintage-dark-brown">
-                                Оформить заказ
+                                {t.checkout}
                               </Button>
                             </DialogTrigger>
                             <DialogContent className="sm:max-w-[425px]">
@@ -408,18 +615,17 @@ function Index() {
       <section className="py-16 lg:py-20">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <h2 className="text-4xl lg:text-6xl font-normal text-foreground mb-6 tracking-tight">
-            VINTAGE FURNITURE
+            {t.heroTitle}
           </h2>
           <p className="text-lg text-muted-foreground mb-8 max-w-xl mx-auto font-light">
-            Carefully curated pieces with rich history, 
-            restored with attention to every detail.
+            {t.heroSubtitle}
           </p>
           <Button 
             variant="outline" 
             size="lg" 
             className="border-2 border-foreground text-foreground hover:bg-foreground hover:text-background px-8 py-3 font-medium tracking-wider"
           >
-            SHOP NOW
+            {t.shopNow}
           </Button>
         </div>
       </section>
@@ -517,19 +723,19 @@ function Index() {
           <div className="flex justify-between items-center mb-12">
             <div>
               <span className="text-sm font-medium text-muted-foreground tracking-wider">
-                {filteredProducts.length} ITEMS
+                {filteredProducts.length} {t.items}
               </span>
             </div>
             <div className="flex items-center space-x-4">
               <Select value={sortBy} onValueChange={(value) => { setSortBy(value); applyFilters(); }}>
                 <SelectTrigger className="w-40 h-8 text-xs border-none bg-transparent">
-                  <SelectValue placeholder="SORT BY" />
+                  <SelectValue placeholder={t.sortBy} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="default">DEFAULT</SelectItem>
-                  <SelectItem value="name">NAME</SelectItem>
-                  <SelectItem value="price-low">PRICE: LOW TO HIGH</SelectItem>
-                  <SelectItem value="price-high">PRICE: HIGH TO LOW</SelectItem>
+                  <SelectItem value="default">{t.default}</SelectItem>
+                  <SelectItem value="name">{t.name}</SelectItem>
+                  <SelectItem value="price-low">{t.priceLowHigh}</SelectItem>
+                  <SelectItem value="price-high">{t.priceHighLow}</SelectItem>
                 </SelectContent>
               </Select>
               <div className="flex items-center space-x-1">
@@ -555,7 +761,7 @@ function Index() {
                   {product.originalPrice && (
                     <div className="absolute top-3 left-3">
                       <span className="bg-black text-white text-xs px-2 py-1 font-medium">
-                        SALE
+                        {t.sale}
                       </span>
                     </div>
                   )}
@@ -579,7 +785,7 @@ function Index() {
                         addToCart(product)
                       }}
                     >
-                      ADD TO CART
+                      {t.addToCart}
                     </Button>
                   </div>
                 </div>
@@ -671,7 +877,7 @@ function Index() {
                   />
                   {selectedProduct.originalPrice && (
                     <Badge className="absolute top-4 left-4 bg-destructive text-destructive-foreground">
-                      Скидка
+                      {t.sale}
                     </Badge>
                   )}
                 </div>
@@ -731,7 +937,7 @@ function Index() {
                       }}
                     >
                       <Icon name="ShoppingCart" size={20} className="mr-2" />
-                      Добавить в корзину
+                      {t.addToCart}
                     </Button>
                     <Button 
                       variant="outline" 
@@ -745,7 +951,7 @@ function Index() {
                       }}
                     >
                       <Icon name="Zap" size={20} className="mr-2" />
-                      Быстрый заказ
+                      {t.quickOrder}
                     </Button>
                   </div>
                 </div>
