@@ -145,9 +145,8 @@ const translations = {
     about: "О НАС",
     contact: "КОНТАКТЫ",
     heroTitle: "ВИНТАЖНАЯ МЕБЕЛЬ",
-    heroSubtitle:
-      "Тщательно отобранная мебель с богатой историей, восстановленные с вниманием к каждой детали.",
-    shopNow: "КУПИТЬ СЕЙЧАС",
+    heroSubtitle: "Тщательно отобранная винтажная мебель с богатой историей",
+
     items: "ТОВАРОВ",
     sortBy: "СОРТИРОВАТЬ",
     default: "ПО УМОЛЧАНИЮ",
@@ -333,28 +332,38 @@ function Index() {
   const [language, setLanguage] = useState<string>("ru");
   const [cart, setCart] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  
+
   const searchRef = useRef<HTMLDivElement>(null);
   const [isOrderDialogOpen, setIsOrderDialogOpen] = useState(false);
-  
+
   // Закрытие поиска при клике вне компонента
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
+      if (
+        searchRef.current &&
+        !searchRef.current.contains(event.target as Node)
+      ) {
         setIsSearchOpen(false);
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
   // Автоматическое применение фильтров при изменении любого параметра
   useEffect(() => {
     applyFilters();
-  }, [searchTerm, selectedStyle, selectedMaterial, selectedSize, priceRange, sortBy]);
+  }, [
+    searchTerm,
+    selectedStyle,
+    selectedMaterial,
+    selectedSize,
+    priceRange,
+    sortBy,
+  ]);
 
   const t =
     translations[language as keyof typeof translations] || translations.ru;
@@ -385,13 +394,16 @@ function Index() {
       return;
     }
 
-    const suggestions = products.filter(product => 
-      product.name.toLowerCase().includes(query.toLowerCase()) ||
-      product.description.toLowerCase().includes(query.toLowerCase()) ||
-      product.category.toLowerCase().includes(query.toLowerCase()) ||
-      product.style.toLowerCase().includes(query.toLowerCase()) ||
-      product.material.toLowerCase().includes(query.toLowerCase())
-    ).slice(0, 6); // Показываем максимум 6 результатов
+    const suggestions = products
+      .filter(
+        (product) =>
+          product.name.toLowerCase().includes(query.toLowerCase()) ||
+          product.description.toLowerCase().includes(query.toLowerCase()) ||
+          product.category.toLowerCase().includes(query.toLowerCase()) ||
+          product.style.toLowerCase().includes(query.toLowerCase()) ||
+          product.material.toLowerCase().includes(query.toLowerCase()),
+      )
+      .slice(0, 6); // Показываем максимум 6 результатов
 
     setSearchSuggestions(suggestions);
     setIsSearchOpen(suggestions.length > 0);
@@ -601,10 +613,10 @@ function Index() {
                     onFocus={() => searchTerm && setIsSearchOpen(true)}
                     className="w-64 h-8 pl-8 pr-4 border-border/20 rounded-full text-sm placeholder:text-muted-foreground/60"
                   />
-                  <Icon 
-                    name="Search" 
-                    size={16} 
-                    className="absolute left-2.5 top-2 text-muted-foreground/60" 
+                  <Icon
+                    name="Search"
+                    size={16}
+                    className="absolute left-2.5 top-2 text-muted-foreground/60"
                   />
                   {searchTerm && (
                     <Button
@@ -621,7 +633,7 @@ function Index() {
                     </Button>
                   )}
                 </div>
-                
+
                 {/* Search Suggestions Dropdown */}
                 {isSearchOpen && searchSuggestions.length > 0 && (
                   <div className="absolute top-full mt-1 w-full bg-background border border-border/20 rounded-lg shadow-lg z-50 max-h-80 overflow-y-auto">
@@ -650,7 +662,11 @@ function Index() {
                             {product.price.toLocaleString()} ₽
                           </p>
                         </div>
-                        <Icon name="ArrowRight" size={14} className="text-muted-foreground" />
+                        <Icon
+                          name="ArrowRight"
+                          size={14}
+                          className="text-muted-foreground"
+                        />
                       </div>
                     ))}
                   </div>
@@ -1056,7 +1072,7 @@ function Index() {
                       alt={product.name}
                       className="w-full aspect-[4/5] object-cover transition-all duration-500 ease-out group-hover:brightness-95"
                     />
-                    
+
                     {/* Sale Badge */}
                     {product.originalPrice && (
                       <div className="absolute top-3 left-3">
@@ -1065,17 +1081,21 @@ function Index() {
                         </div>
                       </div>
                     )}
-                    
+
                     {/* Wishlist Button */}
                     <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       <button
                         className="w-8 h-8 bg-background/80 backdrop-blur-sm border border-border/20 rounded-full flex items-center justify-center hover:bg-background transition-colors"
                         onClick={(e) => e.stopPropagation()}
                       >
-                        <Icon name="Heart" size={14} className="text-foreground" />
+                        <Icon
+                          name="Heart"
+                          size={14}
+                          className="text-foreground"
+                        />
                       </button>
                     </div>
-                    
+
                     {/* Quick Add - appears on hover */}
                     <div className="absolute inset-x-3 bottom-3 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
                       <button
@@ -1088,7 +1108,7 @@ function Index() {
                         ADD TO BAG
                       </button>
                     </div>
-                    
+
                     {/* Quick View Button */}
                     <div className="absolute inset-x-3 bottom-14 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
                       <button
@@ -1098,7 +1118,7 @@ function Index() {
                         QUICK VIEW
                       </button>
                     </div>
-                    
+
                     {/* Subtle overlay on hover */}
                     <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   </div>
@@ -1109,7 +1129,7 @@ function Index() {
                   <h3 className="text-sm font-light text-foreground tracking-wide leading-tight">
                     {product.name}
                   </h3>
-                  
+
                   {/* Price */}
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-normal text-foreground">
@@ -1129,12 +1149,16 @@ function Index() {
 
                   {/* Color Options - Compact */}
                   <div className="space-y-1 pt-1">
-                    <span className="text-xs text-muted-foreground tracking-wider">ЦВЕТА</span>
+                    <span className="text-xs text-muted-foreground tracking-wider">
+                      ЦВЕТА
+                    </span>
                     <div className="flex items-center space-x-1.5">
                       <div className="w-4 h-4 bg-neutral-800 rounded-full border border-border/40 hover:scale-110 transition-transform cursor-pointer"></div>
                       <div className="w-4 h-4 bg-neutral-600 rounded-full border border-border/40 hover:scale-110 transition-transform cursor-pointer"></div>
                       <div className="w-4 h-4 bg-neutral-400 rounded-full border border-border/40 hover:scale-110 transition-transform cursor-pointer"></div>
-                      <span className="text-xs text-muted-foreground ml-1">+2</span>
+                      <span className="text-xs text-muted-foreground ml-1">
+                        +2
+                      </span>
                     </div>
                   </div>
                 </div>
