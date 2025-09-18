@@ -1002,8 +1002,8 @@ function Index() {
 
       {/* Products Grid */}
       <section className="py-16">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="flex justify-between items-center mb-12">
+        <div className="w-full px-0">
+          <div className="flex justify-between items-center mb-12 px-4">
             <div>
               <span className="text-sm font-medium text-muted-foreground tracking-wider">
                 {filteredProducts.length} {t.items}
@@ -1041,11 +1041,11 @@ function Index() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 border-l-0 border-r-0">
             {filteredProducts.map((product) => (
               <div
                 key={product.id}
-                className="group cursor-pointer"
+                className="group cursor-pointer border border-border/20 p-6 hover:border-border/40 transition-colors"
                 onClick={() => openProductDetails(product)}
               >
                 {/* Image Container - Larger Format */}
