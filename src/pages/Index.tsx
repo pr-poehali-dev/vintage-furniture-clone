@@ -1041,88 +1041,45 @@ function Index() {
             </div>
           </div>
 
-          <div className="space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredProducts.map((product) => (
               <div
                 key={product.id}
-                className="group cursor-pointer border-b border-border/20 pb-8 last:border-b-0 last:pb-0"
+                className="group cursor-pointer"
                 onClick={() => openProductDetails(product)}
               >
-                {/* Wide Card Layout */}
-                <div className="flex flex-col md:flex-row gap-8 items-start">
-                  
-                  {/* Image Container - Wide Format */}
-                  <div className="relative overflow-hidden w-full md:w-2/5 lg:w-1/3">
-                    <div className="relative">
-                      <img
-                        src={product.image}
-                        alt={product.name}
-                        className="w-full aspect-[4/5] md:aspect-[3/4] object-cover transition-all duration-500 ease-out group-hover:brightness-95"
-                      />
-                      
-                      {/* Sale Badge */}
-                      {product.originalPrice && (
-                        <div className="absolute top-4 left-4">
-                          <div className="bg-foreground text-background text-xs px-2.5 py-1 font-normal tracking-wide">
-                            SALE
-                          </div>
+                {/* Image Container - Larger Format */}
+                <div className="relative overflow-hidden">
+                  <div className="relative">
+                    <img
+                      src={product.image}
+                      alt={product.name}
+                      className="w-full aspect-[4/5] object-cover transition-all duration-500 ease-out group-hover:brightness-95"
+                    />
+                    
+                    {/* Sale Badge */}
+                    {product.originalPrice && (
+                      <div className="absolute top-6 left-6">
+                        <div className="bg-foreground text-background text-sm px-3 py-1.5 font-normal tracking-wide">
+                          SALE
                         </div>
-                      )}
-                      
-                      {/* Wishlist Button */}
-                      <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <button
-                          className="w-10 h-10 bg-background/80 backdrop-blur-sm border border-border/20 rounded-full flex items-center justify-center hover:bg-background transition-colors"
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          <Icon name="Heart" size={16} className="text-foreground" />
-                        </button>
                       </div>
-                      
-                      {/* Subtle overlay on hover */}
-                      <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    </div>
-                  </div>
-
-                  {/* Product Info - Extended Layout */}
-                  <div className="flex-1 space-y-4">
-                    <div className="space-y-2">
-                      <h3 className="text-2xl font-light text-foreground tracking-wide leading-relaxed">
-                        {product.name}
-                      </h3>
-                      
-                      {/* Price */}
-                      <div className="flex items-center gap-4">
-                        <span className="text-xl font-normal text-foreground">
-                          {product.price.toLocaleString()} ₽
-                        </span>
-                        {product.originalPrice && (
-                          <span className="text-lg text-muted-foreground line-through">
-                            {product.originalPrice.toLocaleString()} ₽
-                          </span>
-                        )}
-                      </div>
-                    </div>
-
-                    {/* Product Description */}
-                    <p className="text-muted-foreground leading-relaxed max-w-2xl">
-                      Премиальное качество и элегантный дизайн. Создано для тех, кто ценит стиль и комфорт.
-                    </p>
-
-                    {/* Color Options */}
-                    <div className="space-y-2">
-                      <span className="text-sm text-muted-foreground tracking-wide">ЦВЕТА</span>
-                      <div className="flex items-center space-x-3">
-                        <div className="w-6 h-6 bg-neutral-800 rounded-full border-2 border-transparent ring-1 ring-border/30 hover:ring-foreground/30 transition-all cursor-pointer"></div>
-                        <div className="w-6 h-6 bg-neutral-600 rounded-full border-2 border-transparent ring-1 ring-border/30 hover:ring-foreground/30 transition-all cursor-pointer"></div>
-                        <div className="w-6 h-6 bg-neutral-400 rounded-full border-2 border-transparent ring-1 ring-border/30 hover:ring-foreground/30 transition-all cursor-pointer"></div>
-                      </div>
-                    </div>
-
-                    {/* Actions */}
-                    <div className="flex items-center gap-4 pt-2">
+                    )}
+                    
+                    {/* Wishlist Button */}
+                    <div className="absolute top-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       <button
-                        className="px-8 py-3 bg-foreground text-background text-sm font-normal tracking-wide hover:bg-foreground/90 transition-colors min-w-[160px]"
+                        className="w-12 h-12 bg-background/80 backdrop-blur-sm border border-border/20 rounded-full flex items-center justify-center hover:bg-background transition-colors"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <Icon name="Heart" size={18} className="text-foreground" />
+                      </button>
+                    </div>
+                    
+                    {/* Quick Add - appears on hover */}
+                    <div className="absolute inset-x-6 bottom-6 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+                      <button
+                        className="w-full h-14 bg-foreground text-background text-sm font-normal tracking-wide hover:bg-foreground/90 transition-colors"
                         onClick={(e) => {
                           e.stopPropagation();
                           addToCart(product);
@@ -1130,13 +1087,54 @@ function Index() {
                       >
                         ADD TO BAG
                       </button>
-                      
+                    </div>
+                    
+                    {/* Quick View Button */}
+                    <div className="absolute inset-x-6 bottom-20 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
                       <button
-                        className="px-6 py-3 border border-border text-foreground text-sm font-normal tracking-wide hover:bg-muted/50 transition-colors"
+                        className="w-full h-12 border border-background/60 text-background text-sm font-normal tracking-wide hover:bg-background/10 transition-colors backdrop-blur-sm"
                         onClick={(e) => e.stopPropagation()}
                       >
                         QUICK VIEW
                       </button>
+                    </div>
+                    
+                    {/* Subtle overlay on hover */}
+                    <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  </div>
+                </div>
+
+                {/* Product Info - Enhanced */}
+                <div className="pt-6 space-y-3">
+                  <h3 className="text-lg font-light text-foreground tracking-wide leading-relaxed">
+                    {product.name}
+                  </h3>
+                  
+                  {/* Price */}
+                  <div className="flex items-center gap-3">
+                    <span className="text-lg font-normal text-foreground">
+                      {product.price.toLocaleString()} ₽
+                    </span>
+                    {product.originalPrice && (
+                      <span className="text-base text-muted-foreground line-through">
+                        {product.originalPrice.toLocaleString()} ₽
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Product Description */}
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Премиальное качество и элегантный дизайн для истинных ценителей стиля.
+                  </p>
+
+                  {/* Color Options - Always visible but enhanced on hover */}
+                  <div className="space-y-2 pt-1">
+                    <span className="text-xs text-muted-foreground tracking-wider">ДОСТУПНЫЕ ЦВЕТА</span>
+                    <div className="flex items-center space-x-2">
+                      <div className="w-5 h-5 bg-neutral-800 rounded-full border border-border/40 hover:scale-110 transition-transform cursor-pointer"></div>
+                      <div className="w-5 h-5 bg-neutral-600 rounded-full border border-border/40 hover:scale-110 transition-transform cursor-pointer"></div>
+                      <div className="w-5 h-5 bg-neutral-400 rounded-full border border-border/40 hover:scale-110 transition-transform cursor-pointer"></div>
+                      <span className="text-xs text-muted-foreground ml-2">+2</span>
                     </div>
                   </div>
                 </div>
