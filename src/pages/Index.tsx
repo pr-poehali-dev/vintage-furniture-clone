@@ -118,6 +118,8 @@ function Index() {
   const [cart, setCart] = useState<CartItem[]>([])
   const [isCartOpen, setIsCartOpen] = useState(false)
   const [isOrderDialogOpen, setIsOrderDialogOpen] = useState(false)
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
+  const [isProductDialogOpen, setIsProductDialogOpen] = useState(false)
   const [orderForm, setOrderForm] = useState<OrderForm>({
     name: '',
     email: '',
@@ -146,6 +148,11 @@ function Index() {
     setSelectedSize("all")
     setSearchTerm("")
     setFilteredProducts(products)
+  }
+
+  const openProductDetails = (product: Product) => {
+    setSelectedProduct(product)
+    setIsProductDialogOpen(true)
   }
 
   const addToCart = (product: Product) => {
@@ -506,7 +513,7 @@ function Index() {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredProducts.map((product) => (
-              <Card key={product.id} className="group hover:shadow-lg transition-all duration-300 overflow-hidden">
+              <Card key={product.id} className="group hover:shadow-lg transition-all duration-300 overflow-hidden cursor-pointer" onClick={() => openProductDetails(product)}>
                 <div className="relative overflow-hidden">
                   <img
                     src={product.image}
@@ -519,7 +526,12 @@ function Index() {
                     </Badge>
                   )}
                   <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <Button size="sm" variant="secondary" className="rounded-full p-2">
+                    <Button 
+                      size="sm" 
+                      variant="secondary" 
+                      className="rounded-full p-2"
+                      onClick={(e) => e.stopPropagation()}
+                    >
                       <Icon name="Heart" size={16} />
                     </Button>
                   </div>
@@ -550,7 +562,10 @@ function Index() {
                   </div>
                   <Button 
                     className="bg-vintage-chocolate hover:bg-vintage-dark-brown"
-                    onClick={() => addToCart(product)}
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      addToCart(product)
+                    }}
                   >
                     <Icon name="ShoppingCart" size={16} className="mr-2" />
                     В корзину
@@ -609,6 +624,108 @@ function Index() {
           </div>
         </div>
       </footer>
+
+      {/* Product Details Dialog */}
+      <Dialog open={isProductDialogOpen} onOpenChange={setIsProductDialogOpen}>
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+          {selectedProduct && (
+            <>
+              <DialogHeader>
+                <DialogTitle className="text-2xl">{selectedProduct.name}</DialogTitle>
+              </DialogHeader>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Large Product Image */}
+                <div className="relative">
+                  <img
+                    src={selectedProduct.image}
+                    alt={selectedProduct.name}
+                    className="w-full h-96 md:h-[500px] object-cover rounded-lg"
+                  />
+                  {selectedProduct.originalPrice && (
+                    <Badge className="absolute top-4 left-4 bg-destructive text-destructive-foreground">
+                      Скидка
+                    </Badge>
+                  )}
+                </div>
+                
+                {/* Product Details */}
+                <div className="space-y-4">
+                  <div>
+                    <div className="flex items-baseline gap-4 mb-2">
+                      <span className="text-3xl font-bold text-vintage-red">
+                        {selectedProduct.price.toLocaleString()} ₽
+                      </span>
+                      {selectedProduct.originalPrice && (
+                        <span className="text-lg text-muted-foreground line-through">
+                          {selectedProduct.originalPrice.toLocaleString()} ₽
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-muted-foreground text-lg">{selectedProduct.description}</p>
+                  </div>
+                  
+                  <Separator />
+                  
+                  {/* Product Specifications */}
+                  <div className="space-y-3">
+                    <h4 className="font-semibold text-lg">Характеристики</h4>
+                    <div className="grid grid-cols-2 gap-4 text-sm">
+                      <div>
+                        <span className="font-medium">Категория:</span>
+                        <p className="text-muted-foreground">{selectedProduct.category}</p>
+                      </div>
+                      <div>
+                        <span className="font-medium">Стиль:</span>
+                        <p className="text-muted-foreground">{selectedProduct.style}</p>
+                      </div>
+                      <div>
+                        <span className="font-medium">Материал:</span>
+                        <p className="text-muted-foreground">{selectedProduct.material}</p>
+                      </div>
+                      <div>
+                        <span className="font-medium">Размер:</span>
+                        <p className="text-muted-foreground">{selectedProduct.size}</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <Separator />
+                  
+                  {/* Action Buttons */}
+                  <div className="space-y-3">
+                    <Button 
+                      className="w-full" 
+                      size="lg"
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        addToCart(selectedProduct)
+                        setIsProductDialogOpen(false)
+                      }}
+                    >
+                      <Icon name="ShoppingCart" size={20} className="mr-2" />
+                      Добавить в корзину
+                    </Button>
+                    <Button 
+                      variant="outline" 
+                      className="w-full" 
+                      size="lg"
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        addToCart(selectedProduct)
+                        setIsProductDialogOpen(false)
+                        setIsOrderDialogOpen(true)
+                      }}
+                    >
+                      <Icon name="Zap" size={20} className="mr-2" />
+                      Быстрый заказ
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }
