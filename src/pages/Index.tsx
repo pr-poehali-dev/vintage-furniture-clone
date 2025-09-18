@@ -101,9 +101,9 @@ function Index() {
   const applyFilters = () => {
     let filtered = products.filter(product => {
       const matchesPrice = product.price >= priceRange[0] && product.price <= priceRange[1]
-      const matchesStyle = !selectedStyle || product.style === selectedStyle
-      const matchesMaterial = !selectedMaterial || product.material === selectedMaterial
-      const matchesSize = !selectedSize || product.size === selectedSize
+      const matchesStyle = !selectedStyle || selectedStyle === 'all' || product.style === selectedStyle
+      const matchesMaterial = !selectedMaterial || selectedMaterial === 'all' || product.material === selectedMaterial
+      const matchesSize = !selectedSize || selectedSize === 'all' || product.size === selectedSize
       const matchesSearch = !searchTerm || product.name.toLowerCase().includes(searchTerm.toLowerCase())
       
       return matchesPrice && matchesStyle && matchesMaterial && matchesSize && matchesSearch
@@ -113,9 +113,9 @@ function Index() {
 
   const resetFilters = () => {
     setPriceRange([0, 100000])
-    setSelectedStyle("")
-    setSelectedMaterial("")
-    setSelectedSize("")
+    setSelectedStyle("all")
+    setSelectedMaterial("all")
+    setSelectedSize("all")
     setSearchTerm("")
     setFilteredProducts(products)
   }
@@ -180,7 +180,7 @@ function Index() {
                   <SelectValue placeholder="Все стили" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">Все стили</SelectItem>
+                  <SelectItem value="all">Все стили</SelectItem>
                   <SelectItem value="Английский">Английский</SelectItem>
                   <SelectItem value="Барокко">Барокко</SelectItem>
                   <SelectItem value="Ампир">Ампир</SelectItem>
@@ -197,7 +197,7 @@ function Index() {
                   <SelectValue placeholder="Все материалы" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">Все материалы</SelectItem>
+                  <SelectItem value="all">Все материалы</SelectItem>
                   <SelectItem value="Дуб">Дуб</SelectItem>
                   <SelectItem value="Махагон">Махагон</SelectItem>
                   <SelectItem value="Орех">Орех</SelectItem>
@@ -211,7 +211,7 @@ function Index() {
                   <SelectValue placeholder="Все размеры" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">Все размеры</SelectItem>
+                  <SelectItem value="all">Все размеры</SelectItem>
                   <SelectItem value="Малый">Малый</SelectItem>
                   <SelectItem value="Средний">Средний</SelectItem>
                   <SelectItem value="Большой">Большой</SelectItem>
