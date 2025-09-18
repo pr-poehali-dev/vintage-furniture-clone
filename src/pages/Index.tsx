@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -327,11 +327,34 @@ function Index() {
   const [selectedMaterial, setSelectedMaterial] = useState<string>("all");
   const [selectedSize, setSelectedSize] = useState<string>("all");
   const [searchTerm, setSearchTerm] = useState("");
+  const [searchSuggestions, setSearchSuggestions] = useState<Product[]>([]);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [sortBy, setSortBy] = useState<string>("default");
   const [language, setLanguage] = useState<string>("ru");
   const [cart, setCart] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  
+  const searchRef = useRef<HTMLDivElement>(null);
   const [isOrderDialogOpen, setIsOrderDialogOpen] = useState(false);
+  
+  // Закрытие поиска при клике вне компонента
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
+        setIsSearchOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  // Автоматическое применение фильтров при изменении любого параметра
+  useEffect(() => {
+    applyFilters();
+  }, [searchTerm, selectedStyle, selectedMaterial, selectedSize, priceRange, sortBy]);
 
   const t =
     translations[language as keyof typeof translations] || translations.ru;
@@ -353,6 +376,40 @@ function Index() {
     address: "",
     comment: "",
   });
+
+  // Функция поиска товаров в реальном времени
+  const searchProducts = (query: string) => {
+    if (!query.trim()) {
+      setSearchSuggestions([]);
+      setIsSearchOpen(false);
+      return;
+    }
+
+    const suggestions = products.filter(product => 
+      product.name.toLowerCase().includes(query.toLowerCase()) ||
+      product.description.toLowerCase().includes(query.toLowerCase()) ||
+      product.category.toLowerCase().includes(query.toLowerCase()) ||
+      product.style.toLowerCase().includes(query.toLowerCase()) ||
+      product.material.toLowerCase().includes(query.toLowerCase())
+    ).slice(0, 6); // Показываем максимум 6 результатов
+
+    setSearchSuggestions(suggestions);
+    setIsSearchOpen(suggestions.length > 0);
+  };
+
+  // Обработчик изменения поискового запроса
+  const handleSearchChange = (value: string) => {
+    setSearchTerm(value);
+    searchProducts(value);
+  };
+
+  // Выбор товара из поисковых подсказок
+  const handleSearchSelect = (product: Product) => {
+    setSearchTerm(product.name);
+    setIsSearchOpen(false);
+    setSearchSuggestions([]);
+    openProductDetails(product);
+  };
 
   const applyFilters = () => {
     let filtered = products.filter((product) => {
@@ -533,13 +590,72 @@ function Index() {
                   ))}
                 </SelectContent>
               </Select>
-              <Button
-                variant="ghost"
-                size="sm"
-                className="h-8 w-8 p-0 hover:bg-transparent"
-              >
-                <Icon name="Search" size={18} className="text-foreground/80" />
-              </Button>
+              {/* Smart Search with Autocomplete */}
+              <div className="relative" ref={searchRef}>
+                <div className="relative">
+                  <Input
+                    type="text"
+                    placeholder="Поиск мебели..."
+                    value={searchTerm}
+                    onChange={(e) => handleSearchChange(e.target.value)}
+                    onFocus={() => searchTerm && setIsSearchOpen(true)}
+                    className="w-64 h-8 pl-8 pr-4 border-border/20 rounded-full text-sm placeholder:text-muted-foreground/60"
+                  />
+                  <Icon 
+                    name="Search" 
+                    size={16} 
+                    className="absolute left-2.5 top-2 text-muted-foreground/60" 
+                  />
+                  {searchTerm && (
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="absolute right-1 top-0.5 h-6 w-6 p-0 hover:bg-muted/50"
+                      onClick={() => {
+                        setSearchTerm("");
+                        setSearchSuggestions([]);
+                        setIsSearchOpen(false);
+                      }}
+                    >
+                      <Icon name="X" size={12} />
+                    </Button>
+                  )}
+                </div>
+                
+                {/* Search Suggestions Dropdown */}
+                {isSearchOpen && searchSuggestions.length > 0 && (
+                  <div className="absolute top-full mt-1 w-full bg-background border border-border/20 rounded-lg shadow-lg z-50 max-h-80 overflow-y-auto">
+                    <div className="p-2 text-xs text-muted-foreground border-b border-border/10">
+                      Найдено {searchSuggestions.length} товаров
+                    </div>
+                    {searchSuggestions.map((product) => (
+                      <div
+                        key={product.id}
+                        className="flex items-center space-x-3 p-3 hover:bg-muted/50 cursor-pointer border-b border-border/5 last:border-b-0"
+                        onClick={() => handleSearchSelect(product)}
+                      >
+                        <img
+                          src={product.image}
+                          alt={product.name}
+                          className="w-12 h-12 object-cover rounded-sm"
+                        />
+                        <div className="flex-1 min-w-0">
+                          <h4 className="text-sm font-medium text-foreground truncate">
+                            {product.name}
+                          </h4>
+                          <p className="text-xs text-muted-foreground truncate">
+                            {product.category} • {product.style}
+                          </p>
+                          <p className="text-sm font-semibold text-foreground mt-1">
+                            {product.price.toLocaleString()} ₽
+                          </p>
+                        </div>
+                        <Icon name="ArrowRight" size={14} className="text-muted-foreground" />
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
               <Sheet open={isCartOpen} onOpenChange={setIsCartOpen}>
                 <SheetTrigger asChild>
                   <Button
@@ -806,7 +922,7 @@ function Index() {
               <Input
                 placeholder="Найти мебель..."
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                onChange={(e) => handleSearchChange(e.target.value)}
               />
             </div>
             <div>
@@ -874,13 +990,10 @@ function Index() {
                 </div>
               </div>
             </div>
-            <div className="flex space-x-2">
-              <Button onClick={applyFilters} className="flex-1">
-                <Icon name="Filter" size={16} className="mr-2" />
-                Применить
-              </Button>
-              <Button variant="outline" onClick={resetFilters}>
-                <Icon name="X" size={16} />
+            <div className="flex justify-end">
+              <Button variant="outline" onClick={resetFilters} size="sm">
+                <Icon name="RotateCcw" size={16} className="mr-2" />
+                Сбросить фильтры
               </Button>
             </div>
           </div>
@@ -901,7 +1014,6 @@ function Index() {
                 value={sortBy}
                 onValueChange={(value) => {
                   setSortBy(value);
-                  applyFilters();
                 }}
               >
                 <SelectTrigger className="w-40 h-8 text-xs border-none bg-transparent">
