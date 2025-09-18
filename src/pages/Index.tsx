@@ -115,6 +115,7 @@ function Index() {
   const [selectedMaterial, setSelectedMaterial] = useState<string>("all")
   const [selectedSize, setSelectedSize] = useState<string>("all")
   const [searchTerm, setSearchTerm] = useState("")
+  const [sortBy, setSortBy] = useState<string>("default")
   const [cart, setCart] = useState<CartItem[]>([])
   const [isCartOpen, setIsCartOpen] = useState(false)
   const [isOrderDialogOpen, setIsOrderDialogOpen] = useState(false)
@@ -138,6 +139,16 @@ function Index() {
       
       return matchesPrice && matchesStyle && matchesMaterial && matchesSize && matchesSearch
     })
+    
+    // Apply sorting
+    if (sortBy === 'price-low') {
+      filtered = filtered.sort((a, b) => a.price - b.price)
+    } else if (sortBy === 'price-high') {
+      filtered = filtered.sort((a, b) => b.price - a.price)
+    } else if (sortBy === 'name') {
+      filtered = filtered.sort((a, b) => a.name.localeCompare(b.name))
+    }
+    
     setFilteredProducts(filtered)
   }
 
@@ -213,29 +224,30 @@ function Index() {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="border-b border-border bg-card">
-        <div className="container mx-auto px-4 py-4">
+      <header className="border-b border-border/20 bg-background">
+        <div className="max-w-7xl mx-auto px-4 py-5">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-8">
-              <h1 className="text-2xl font-bold text-primary">VINTAGE FURNITURE</h1>
-              <nav className="hidden md:flex space-x-6">
-                <a href="#" className="text-foreground hover:text-primary transition-colors">Главная</a>
-                <a href="#" className="text-foreground hover:text-primary transition-colors">Каталог</a>
-                <a href="#" className="text-foreground hover:text-primary transition-colors">Коллекции</a>
-                <a href="#" className="text-foreground hover:text-primary transition-colors">О нас</a>
-                <a href="#" className="text-foreground hover:text-primary transition-colors">Контакты</a>
+            <div className="flex items-center space-x-12">
+              <h1 className="text-xl font-normal tracking-wider text-foreground">VINTAGE FURNITURE</h1>
+              <nav className="hidden lg:flex space-x-8">
+                <a href="#" className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors tracking-wide">SHOP</a>
+                <a href="#" className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors tracking-wide">COLLECTIONS</a>
+                <a href="#" className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors tracking-wide">ABOUT</a>
+                <a href="#" className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors tracking-wide">CONTACT</a>
               </nav>
             </div>
-            <div className="flex items-center space-x-4">
-              <Icon name="Search" size={20} className="text-muted-foreground" />
+            <div className="flex items-center space-x-5">
+              <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-transparent">
+                <Icon name="Search" size={18} className="text-foreground/80" />
+              </Button>
               <Sheet open={isCartOpen} onOpenChange={setIsCartOpen}>
                 <SheetTrigger asChild>
-                  <Button variant="ghost" size="sm" className="relative">
-                    <Icon name="ShoppingBag" size={20} className="text-muted-foreground" />
+                  <Button variant="ghost" size="sm" className="relative h-8 w-8 p-0 hover:bg-transparent">
+                    <Icon name="ShoppingBag" size={18} className="text-foreground/80" />
                     {getTotalItems() > 0 && (
-                      <Badge className="absolute -top-2 -right-2 h-6 w-6 rounded-full p-0 flex items-center justify-center bg-vintage-chocolate text-white text-xs">
+                      <span className="absolute -top-1 -right-1 h-4 w-4 rounded-full bg-foreground text-background text-xs flex items-center justify-center font-medium">
                         {getTotalItems()}
-                      </Badge>
+                      </span>
                     )}
                   </Button>
                 </SheetTrigger>
@@ -393,24 +405,28 @@ function Index() {
       </header>
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-vintage-wheat to-vintage-terracotta py-20">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-5xl font-bold text-vintage-dark-brown mb-6">
-            Коллекция Винтажной Мебели
+      <section className="py-16 lg:py-20">
+        <div className="max-w-7xl mx-auto px-4 text-center">
+          <h2 className="text-4xl lg:text-6xl font-normal text-foreground mb-6 tracking-tight">
+            VINTAGE FURNITURE
           </h2>
-          <p className="text-xl text-vintage-chocolate mb-8 max-w-2xl mx-auto">
-            Откройте для себя уникальные предметы мебели с богатой историей. 
-            Каждый элемент тщательно отобран и восстановлен с любовью к деталям.
+          <p className="text-lg text-muted-foreground mb-8 max-w-xl mx-auto font-light">
+            Carefully curated pieces with rich history, 
+            restored with attention to every detail.
           </p>
-          <Button size="lg" className="bg-vintage-chocolate hover:bg-vintage-dark-brown text-white px-8 py-3">
-            Посмотреть Каталог
+          <Button 
+            variant="outline" 
+            size="lg" 
+            className="border-2 border-foreground text-foreground hover:bg-foreground hover:text-background px-8 py-3 font-medium tracking-wider"
+          >
+            SHOP NOW
           </Button>
         </div>
       </section>
 
       {/* Filters Section */}
-      <section className="py-8 bg-muted/30">
-        <div className="container mx-auto px-4">
+      <section className="py-6 border-b border-border/20">
+        <div className="max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-6 gap-4 items-end">
             <div>
               <label className="text-sm font-medium mb-2 block">Поиск</label>
@@ -496,82 +512,94 @@ function Index() {
       </section>
 
       {/* Products Grid */}
-      <section className="py-12">
-        <div className="container mx-auto px-4">
-          <div className="flex justify-between items-center mb-8">
-            <h3 className="text-3xl font-bold">Наша Коллекция</h3>
-            <div className="flex items-center space-x-4">
-              <span className="text-muted-foreground">
-                Найдено: {filteredProducts.length} товаров
+      <section className="py-16">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex justify-between items-center mb-12">
+            <div>
+              <span className="text-sm font-medium text-muted-foreground tracking-wider">
+                {filteredProducts.length} ITEMS
               </span>
-              <div className="flex items-center space-x-2">
-                <Icon name="Grid3X3" size={20} className="text-muted-foreground" />
-                <Icon name="List" size={20} className="text-muted-foreground" />
+            </div>
+            <div className="flex items-center space-x-4">
+              <Select value={sortBy} onValueChange={(value) => { setSortBy(value); applyFilters(); }}>
+                <SelectTrigger className="w-40 h-8 text-xs border-none bg-transparent">
+                  <SelectValue placeholder="SORT BY" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="default">DEFAULT</SelectItem>
+                  <SelectItem value="name">NAME</SelectItem>
+                  <SelectItem value="price-low">PRICE: LOW TO HIGH</SelectItem>
+                  <SelectItem value="price-high">PRICE: HIGH TO LOW</SelectItem>
+                </SelectContent>
+              </Select>
+              <div className="flex items-center space-x-1">
+                <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+                  <Icon name="Grid3X3" size={16} className="text-foreground/60" />
+                </Button>
+                <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+                  <Icon name="List" size={16} className="text-foreground/60" />
+                </Button>
               </div>
             </div>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {filteredProducts.map((product) => (
-              <Card key={product.id} className="group hover:shadow-lg transition-all duration-300 overflow-hidden cursor-pointer" onClick={() => openProductDetails(product)}>
-                <div className="relative overflow-hidden">
+              <div key={product.id} className="group cursor-pointer" onClick={() => openProductDetails(product)}>
+                <div className="relative overflow-hidden bg-white rounded-sm">
                   <img
                     src={product.image}
                     alt={product.name}
-                    className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500 ease-out"
+                    className="w-full aspect-[3/4] object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                   {product.originalPrice && (
-                    <Badge className="absolute top-4 left-4 bg-destructive text-destructive-foreground">
-                      Скидка
-                    </Badge>
+                    <div className="absolute top-3 left-3">
+                      <span className="bg-black text-white text-xs px-2 py-1 font-medium">
+                        SALE
+                      </span>
+                    </div>
                   )}
-                  <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <Button 
                       size="sm" 
-                      variant="secondary" 
-                      className="rounded-full p-2"
+                      variant="ghost" 
+                      className="h-8 w-8 p-0 bg-white/90 hover:bg-white rounded-full"
                       onClick={(e) => e.stopPropagation()}
                     >
-                      <Icon name="Heart" size={16} />
+                      <Icon name="Heart" size={14} />
+                    </Button>
+                  </div>
+                  
+                  {/* Quick Add Button - appears on hover */}
+                  <div className="absolute bottom-3 left-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <Button 
+                      className="w-full bg-black hover:bg-gray-800 text-white h-10 text-sm font-medium"
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        addToCart(product)
+                      }}
+                    >
+                      ADD TO CART
                     </Button>
                   </div>
                 </div>
-                <CardHeader>
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <CardTitle className="text-lg">{product.name}</CardTitle>
-                      <CardDescription className="text-sm">{product.description}</CardDescription>
-                    </div>
-                  </div>
-                  <div className="flex flex-wrap gap-2 mt-2">
-                    <Badge variant="outline" className="text-xs">{product.style}</Badge>
-                    <Badge variant="outline" className="text-xs">{product.material}</Badge>
-                    <Badge variant="outline" className="text-xs">{product.size}</Badge>
-                  </div>
-                </CardHeader>
-                <CardFooter className="flex justify-between items-center">
-                  <div className="flex flex-col">
-                    <span className="text-2xl font-bold text-primary">
+                
+                <div className="pt-3 space-y-1">
+                  <h3 className="font-medium text-sm leading-tight group-hover:text-gray-600 transition-colors">
+                    {product.name}
+                  </h3>
+                  <div className="flex items-center gap-2">
+                    <span className="font-medium text-sm">
                       {product.price.toLocaleString()} ₽
                     </span>
                     {product.originalPrice && (
-                      <span className="text-sm text-muted-foreground line-through">
+                      <span className="text-xs text-muted-foreground line-through">
                         {product.originalPrice.toLocaleString()} ₽
                       </span>
                     )}
                   </div>
-                  <Button 
-                    className="bg-vintage-chocolate hover:bg-vintage-dark-brown"
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      addToCart(product)
-                    }}
-                  >
-                    <Icon name="ShoppingCart" size={16} className="mr-2" />
-                    В корзину
-                  </Button>
-                </CardFooter>
-              </Card>
+                </div>
+              </div>
             ))}
           </div>
         </div>

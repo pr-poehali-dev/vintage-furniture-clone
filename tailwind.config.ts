@@ -68,6 +68,14 @@ export default {
 					wheat: '#F5DEB3',
 					'dark-brown': '#2F1B14',
 					serigon: '#2F1B14'
+				},
+				lonefox: {
+					sage: '#9CAD8C',
+					cream: '#F8F7F4',
+					charcoal: '#2D2D2D',
+					warm: '#E8E3DB',
+					stone: '#B8B5AF',
+					forest: '#5C6B4A'
 				}
 			},
 			borderRadius: {
