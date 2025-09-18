@@ -1,41 +1,69 @@
-import { useState } from 'react'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
-import { Input } from '@/components/ui/input'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Slider } from '@/components/ui/slider'
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
-import { Label } from '@/components/ui/label'
-import { Textarea } from '@/components/ui/textarea'
-import { Separator } from '@/components/ui/separator'
-import Icon from '@/components/ui/icon'
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Slider } from "@/components/ui/slider";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Separator } from "@/components/ui/separator";
+import Icon from "@/components/ui/icon";
 
 interface Product {
-  id: number
-  name: string
-  price: number
-  originalPrice?: number
-  category: string
-  style: string
-  material: string
-  size: string
-  image: string
-  description: string
+  id: number;
+  name: string;
+  price: number;
+  originalPrice?: number;
+  category: string;
+  style: string;
+  material: string;
+  size: string;
+  image: string;
+  description: string;
 }
 
 interface CartItem {
-  product: Product
-  quantity: number
+  product: Product;
+  quantity: number;
 }
 
 interface OrderForm {
-  name: string
-  email: string
-  phone: string
-  address: string
-  comment: string
+  name: string;
+  email: string;
+  phone: string;
+  address: string;
+  comment: string;
 }
 
 const products: Product[] = [
@@ -49,7 +77,7 @@ const products: Product[] = [
     material: "Дуб",
     size: "Средний",
     image: "/img/a5e41cb3-6702-483d-aaf0-a74525f501f4.jpg",
-    description: "Изысканное кресло в английском стиле с резными деталями"
+    description: "Изысканное кресло в английском стиле с резными деталями",
   },
   {
     id: 2,
@@ -60,7 +88,7 @@ const products: Product[] = [
     material: "Махагон",
     size: "Большой",
     image: "/img/7e1fe342-e594-48cf-80f5-71532bf4176e.jpg",
-    description: "Роскошный обеденный стол с орнаментальными ножками"
+    description: "Роскошный обеденный стол с орнаментальными ножками",
   },
   {
     id: 3,
@@ -71,7 +99,8 @@ const products: Product[] = [
     material: "Орех",
     size: "Средний",
     image: "/img/1a00855f-281f-4bf0-ac99-bd24c51b1e7e.jpg",
-    description: "Элегантная витрина со стеклянными дверцами и латунной фурнитурой"
+    description:
+      "Элегантная витрина со стеклянными дверцами и латунной фурнитурой",
   },
   {
     id: 4,
@@ -82,7 +111,7 @@ const products: Product[] = [
     material: "Дуб",
     size: "Средний",
     image: "/img/a5e41cb3-6702-483d-aaf0-a74525f501f4.jpg",
-    description: "Изящный письменный стол с множеством ящиков"
+    description: "Изящный письменный стол с множеством ящиков",
   },
   {
     id: 5,
@@ -93,7 +122,7 @@ const products: Product[] = [
     material: "Орех",
     size: "Средний",
     image: "/img/1a00855f-281f-4bf0-ac99-bd24c51b1e7e.jpg",
-    description: "Роскошный комод с бронзовой отделкой"
+    description: "Роскошный комод с бронзовой отделкой",
   },
   {
     id: 6,
@@ -104,19 +133,20 @@ const products: Product[] = [
     material: "Махагон",
     size: "Средний",
     image: "/img/7e1fe342-e594-48cf-80f5-71532bf4176e.jpg",
-    description: "Элегантное кресло с характерными изогнутыми линиями"
-  }
-]
+    description: "Элегантное кресло с характерными изогнутыми линиями",
+  },
+];
 
 const translations = {
   ru: {
-    siteName: "ВИНТАЖНАЯ МЕБЕЛЬ",
+    siteName: "MIMESIS",
     shop: "МАГАЗИН",
     collections: "КОЛЛЕКЦИИ",
     about: "О НАС",
     contact: "КОНТАКТЫ",
     heroTitle: "ВИНТАЖНАЯ МЕБЕЛЬ",
-    heroSubtitle: "Тщательно отобранные предметы с богатой историей, восстановленные с вниманием к каждой детали.",
+    heroSubtitle:
+      "Тщательно отобранные предметы с богатой историей, восстановленные с вниманием к каждой детали.",
     shopNow: "КУПИТЬ СЕЙЧАС",
     items: "ТОВАРОВ",
     sortBy: "СОРТИРОВАТЬ",
@@ -136,7 +166,7 @@ const translations = {
     emptyCart: "Ваша корзина пуста",
     total: "ИТОГО",
     checkout: "ОФОРМИТЬ ЗАКАЗ",
-    sale: "СКИДКА"
+    sale: "СКИДКА",
   },
   en: {
     siteName: "VINTAGE FURNITURE",
@@ -145,7 +175,8 @@ const translations = {
     about: "ABOUT",
     contact: "CONTACT",
     heroTitle: "VINTAGE FURNITURE",
-    heroSubtitle: "Carefully curated pieces with rich history, restored with attention to every detail.",
+    heroSubtitle:
+      "Carefully curated pieces with rich history, restored with attention to every detail.",
     shopNow: "SHOP NOW",
     items: "ITEMS",
     sortBy: "SORT BY",
@@ -165,7 +196,7 @@ const translations = {
     emptyCart: "Your cart is empty",
     total: "TOTAL",
     checkout: "CHECKOUT",
-    sale: "SALE"
+    sale: "SALE",
   },
   de: {
     siteName: "VINTAGE MÖBEL",
@@ -174,7 +205,8 @@ const translations = {
     about: "ÜBER UNS",
     contact: "KONTAKT",
     heroTitle: "VINTAGE MÖBEL",
-    heroSubtitle: "Sorgfältig kuratierte Stücke mit reicher Geschichte, restauriert mit Liebe zum Detail.",
+    heroSubtitle:
+      "Sorgfältig kuratierte Stücke mit reicher Geschichte, restauriert mit Liebe zum Detail.",
     shopNow: "JETZT KAUFEN",
     items: "ARTIKEL",
     sortBy: "SORTIEREN",
@@ -194,7 +226,7 @@ const translations = {
     emptyCart: "Ihr Warenkorb ist leer",
     total: "GESAMT",
     checkout: "KASSE",
-    sale: "ANGEBOT"
+    sale: "ANGEBOT",
   },
   fr: {
     siteName: "MOBILIER VINTAGE",
@@ -203,7 +235,8 @@ const translations = {
     about: "À PROPOS",
     contact: "CONTACT",
     heroTitle: "MOBILIER VINTAGE",
-    heroSubtitle: "Pièces soigneusement sélectionnées avec une riche histoire, restaurées avec attention aux détails.",
+    heroSubtitle:
+      "Pièces soigneusement sélectionnées avec une riche histoire, restaurées avec attention aux détails.",
     shopNow: "ACHETER MAINTENANT",
     items: "ARTICLES",
     sortBy: "TRIER PAR",
@@ -223,7 +256,7 @@ const translations = {
     emptyCart: "Votre panier est vide",
     total: "TOTAL",
     checkout: "COMMANDER",
-    sale: "SOLDE"
+    sale: "SOLDE",
   },
   es: {
     siteName: "MUEBLES VINTAGE",
@@ -232,7 +265,8 @@ const translations = {
     about: "ACERCA DE",
     contact: "CONTACTO",
     heroTitle: "MUEBLES VINTAGE",
-    heroSubtitle: "Piezas cuidadosamente seleccionadas con rica historia, restauradas con atención al detalle.",
+    heroSubtitle:
+      "Piezas cuidadosamente seleccionadas con rica historia, restauradas con atención al detalle.",
     shopNow: "COMPRAR AHORA",
     items: "ARTÍCULOS",
     sortBy: "ORDENAR POR",
@@ -252,7 +286,7 @@ const translations = {
     emptyCart: "Tu carrito está vacío",
     total: "TOTAL",
     checkout: "FINALIZAR COMPRA",
-    sale: "OFERTA"
+    sale: "OFERTA",
   },
   it: {
     siteName: "MOBILI VINTAGE",
@@ -261,7 +295,8 @@ const translations = {
     about: "CHI SIAMO",
     contact: "CONTATTO",
     heroTitle: "MOBILI VINTAGE",
-    heroSubtitle: "Pezzi accuratamente selezionati con una ricca storia, restaurati con attenzione ai dettagli.",
+    heroSubtitle:
+      "Pezzi accuratamente selezionati con una ricca storia, restaurati con attenzione ai dettagli.",
     shopNow: "ACQUISTA ORA",
     items: "ARTICOLI",
     sortBy: "ORDINA PER",
@@ -281,134 +316,160 @@ const translations = {
     emptyCart: "Il tuo carrello è vuoto",
     total: "TOTALE",
     checkout: "PROCEDI ALL'ACQUISTO",
-    sale: "SALDO"
-  }
-}
+    sale: "SALDO",
+  },
+};
 
 function Index() {
-  const [filteredProducts, setFilteredProducts] = useState(products)
-  const [priceRange, setPriceRange] = useState([0, 100000])
-  const [selectedStyle, setSelectedStyle] = useState<string>("all")
-  const [selectedMaterial, setSelectedMaterial] = useState<string>("all")
-  const [selectedSize, setSelectedSize] = useState<string>("all")
-  const [searchTerm, setSearchTerm] = useState("")
-  const [sortBy, setSortBy] = useState<string>("default")
-  const [language, setLanguage] = useState<string>("ru")
-  const [cart, setCart] = useState<CartItem[]>([])
-  const [isCartOpen, setIsCartOpen] = useState(false)
-  const [isOrderDialogOpen, setIsOrderDialogOpen] = useState(false)
-  
-  const t = translations[language as keyof typeof translations] || translations.ru
-  
+  const [filteredProducts, setFilteredProducts] = useState(products);
+  const [priceRange, setPriceRange] = useState([0, 100000]);
+  const [selectedStyle, setSelectedStyle] = useState<string>("all");
+  const [selectedMaterial, setSelectedMaterial] = useState<string>("all");
+  const [selectedSize, setSelectedSize] = useState<string>("all");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [sortBy, setSortBy] = useState<string>("default");
+  const [language, setLanguage] = useState<string>("ru");
+  const [cart, setCart] = useState<CartItem[]>([]);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isOrderDialogOpen, setIsOrderDialogOpen] = useState(false);
+
+  const t =
+    translations[language as keyof typeof translations] || translations.ru;
+
   const languages = [
-    { code: 'ru', name: 'Русский', flag: '🇷🇺' },
-    { code: 'en', name: 'English', flag: '🇬🇧' },
-    { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
-    { code: 'fr', name: 'Français', flag: '🇫🇷' },
-    { code: 'es', name: 'Español', flag: '🇪🇸' },
-    { code: 'it', name: 'Italiano', flag: '🇮🇹' }
-  ]
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
-  const [isProductDialogOpen, setIsProductDialogOpen] = useState(false)
+    { code: "ru", name: "Русский", flag: "🇷🇺" },
+    { code: "en", name: "English", flag: "🇬🇧" },
+    { code: "de", name: "Deutsch", flag: "🇩🇪" },
+    { code: "fr", name: "Français", flag: "🇫🇷" },
+    { code: "es", name: "Español", flag: "🇪🇸" },
+    { code: "it", name: "Italiano", flag: "🇮🇹" },
+  ];
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [isProductDialogOpen, setIsProductDialogOpen] = useState(false);
   const [orderForm, setOrderForm] = useState<OrderForm>({
-    name: '',
-    email: '',
-    phone: '',
-    address: '',
-    comment: ''
-  })
+    name: "",
+    email: "",
+    phone: "",
+    address: "",
+    comment: "",
+  });
 
   const applyFilters = () => {
-    let filtered = products.filter(product => {
-      const matchesPrice = product.price >= priceRange[0] && product.price <= priceRange[1]
-      const matchesStyle = !selectedStyle || selectedStyle === 'all' || product.style === selectedStyle
-      const matchesMaterial = !selectedMaterial || selectedMaterial === 'all' || product.material === selectedMaterial
-      const matchesSize = !selectedSize || selectedSize === 'all' || product.size === selectedSize
-      const matchesSearch = !searchTerm || product.name.toLowerCase().includes(searchTerm.toLowerCase())
-      
-      return matchesPrice && matchesStyle && matchesMaterial && matchesSize && matchesSearch
-    })
-    
+    let filtered = products.filter((product) => {
+      const matchesPrice =
+        product.price >= priceRange[0] && product.price <= priceRange[1];
+      const matchesStyle =
+        !selectedStyle ||
+        selectedStyle === "all" ||
+        product.style === selectedStyle;
+      const matchesMaterial =
+        !selectedMaterial ||
+        selectedMaterial === "all" ||
+        product.material === selectedMaterial;
+      const matchesSize =
+        !selectedSize ||
+        selectedSize === "all" ||
+        product.size === selectedSize;
+      const matchesSearch =
+        !searchTerm ||
+        product.name.toLowerCase().includes(searchTerm.toLowerCase());
+
+      return (
+        matchesPrice &&
+        matchesStyle &&
+        matchesMaterial &&
+        matchesSize &&
+        matchesSearch
+      );
+    });
+
     // Apply sorting
-    if (sortBy === 'price-low') {
-      filtered = filtered.sort((a, b) => a.price - b.price)
-    } else if (sortBy === 'price-high') {
-      filtered = filtered.sort((a, b) => b.price - a.price)
-    } else if (sortBy === 'name') {
-      filtered = filtered.sort((a, b) => a.name.localeCompare(b.name))
+    if (sortBy === "price-low") {
+      filtered = filtered.sort((a, b) => a.price - b.price);
+    } else if (sortBy === "price-high") {
+      filtered = filtered.sort((a, b) => b.price - a.price);
+    } else if (sortBy === "name") {
+      filtered = filtered.sort((a, b) => a.name.localeCompare(b.name));
     }
-    
-    setFilteredProducts(filtered)
-  }
+
+    setFilteredProducts(filtered);
+  };
 
   const resetFilters = () => {
-    setPriceRange([0, 100000])
-    setSelectedStyle("all")
-    setSelectedMaterial("all")
-    setSelectedSize("all")
-    setSearchTerm("")
-    setFilteredProducts(products)
-  }
+    setPriceRange([0, 100000]);
+    setSelectedStyle("all");
+    setSelectedMaterial("all");
+    setSelectedSize("all");
+    setSearchTerm("");
+    setFilteredProducts(products);
+  };
 
   const openProductDetails = (product: Product) => {
-    setSelectedProduct(product)
-    setIsProductDialogOpen(true)
-  }
+    setSelectedProduct(product);
+    setIsProductDialogOpen(true);
+  };
 
   const addToCart = (product: Product) => {
-    setCart(prevCart => {
-      const existingItem = prevCart.find(item => item.product.id === product.id)
+    setCart((prevCart) => {
+      const existingItem = prevCart.find(
+        (item) => item.product.id === product.id,
+      );
       if (existingItem) {
-        return prevCart.map(item =>
+        return prevCart.map((item) =>
           item.product.id === product.id
             ? { ...item, quantity: item.quantity + 1 }
-            : item
-        )
+            : item,
+        );
       }
-      return [...prevCart, { product, quantity: 1 }]
-    })
-  }
+      return [...prevCart, { product, quantity: 1 }];
+    });
+  };
 
   const removeFromCart = (productId: number) => {
-    setCart(prevCart => prevCart.filter(item => item.product.id !== productId))
-  }
+    setCart((prevCart) =>
+      prevCart.filter((item) => item.product.id !== productId),
+    );
+  };
 
   const updateCartQuantity = (productId: number, quantity: number) => {
     if (quantity <= 0) {
-      removeFromCart(productId)
-      return
+      removeFromCart(productId);
+      return;
     }
-    setCart(prevCart =>
-      prevCart.map(item =>
-        item.product.id === productId
-          ? { ...item, quantity }
-          : item
-      )
-    )
-  }
+    setCart((prevCart) =>
+      prevCart.map((item) =>
+        item.product.id === productId ? { ...item, quantity } : item,
+      ),
+    );
+  };
 
   const getTotalPrice = () => {
-    return cart.reduce((total, item) => total + item.product.price * item.quantity, 0)
-  }
+    return cart.reduce(
+      (total, item) => total + item.product.price * item.quantity,
+      0,
+    );
+  };
 
   const getTotalItems = () => {
-    return cart.reduce((total, item) => total + item.quantity, 0)
-  }
+    return cart.reduce((total, item) => total + item.quantity, 0);
+  };
 
   const handleOrderSubmit = () => {
     // Здесь можно добавить отправку заказа на сервер
-    alert(`Спасибо за заказ, ${orderForm.name}! Мы свяжемся с вами в ближайшее время.`)
-    setCart([])
-    setIsOrderDialogOpen(false)
-    setIsCartOpen(false)
+    alert(
+      `Спасибо за заказ, ${orderForm.name}! Мы свяжемся с вами в ближайшее время.`,
+    );
+    setCart([]);
+    setIsOrderDialogOpen(false);
+    setIsCartOpen(false);
     setOrderForm({
-      name: '',
-      email: '',
-      phone: '',
-      address: '',
-      comment: ''
-    })
-  }
+      name: "",
+      email: "",
+      phone: "",
+      address: "",
+      comment: "",
+    });
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -417,12 +478,34 @@ function Index() {
         <div className="max-w-7xl mx-auto px-4 py-5">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-12">
-              <h1 className="text-xl font-normal tracking-wider text-foreground">{t.siteName}</h1>
+              <h1 className="text-xl font-normal tracking-wider text-foreground">
+                {t.siteName}
+              </h1>
               <nav className="hidden lg:flex space-x-8">
-                <a href="#" className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors tracking-wide">{t.shop}</a>
-                <a href="#" className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors tracking-wide">{t.collections}</a>
-                <a href="#" className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors tracking-wide">{t.about}</a>
-                <a href="#" className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors tracking-wide">{t.contact}</a>
+                <a
+                  href="#"
+                  className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors tracking-wide"
+                >
+                  {t.shop}
+                </a>
+                <a
+                  href="#"
+                  className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors tracking-wide"
+                >
+                  {t.collections}
+                </a>
+                <a
+                  href="#"
+                  className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors tracking-wide"
+                >
+                  {t.about}
+                </a>
+                <a
+                  href="#"
+                  className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors tracking-wide"
+                >
+                  {t.contact}
+                </a>
               </nav>
             </div>
             <div className="flex items-center space-x-5">
@@ -430,12 +513,18 @@ function Index() {
               <Select value={language} onValueChange={setLanguage}>
                 <SelectTrigger className="w-16 h-8 border-none bg-transparent p-0 focus:ring-0">
                   <SelectValue>
-                    <span className="text-lg">{languages.find(lang => lang.code === language)?.flag}</span>
+                    <span className="text-lg">
+                      {languages.find((lang) => lang.code === language)?.flag}
+                    </span>
                   </SelectValue>
                 </SelectTrigger>
                 <SelectContent>
                   {languages.map((lang) => (
-                    <SelectItem key={lang.code} value={lang.code} className="flex items-center">
+                    <SelectItem
+                      key={lang.code}
+                      value={lang.code}
+                      className="flex items-center"
+                    >
                       <div className="flex items-center space-x-2">
                         <span className="text-lg">{lang.flag}</span>
                         <span className="text-sm">{lang.name}</span>
@@ -444,13 +533,25 @@ function Index() {
                   ))}
                 </SelectContent>
               </Select>
-              <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-transparent">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="h-8 w-8 p-0 hover:bg-transparent"
+              >
                 <Icon name="Search" size={18} className="text-foreground/80" />
               </Button>
               <Sheet open={isCartOpen} onOpenChange={setIsCartOpen}>
                 <SheetTrigger asChild>
-                  <Button variant="ghost" size="sm" className="relative h-8 w-8 p-0 hover:bg-transparent">
-                    <Icon name="ShoppingBag" size={18} className="text-foreground/80" />
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="relative h-8 w-8 p-0 hover:bg-transparent"
+                  >
+                    <Icon
+                      name="ShoppingBag"
+                      size={18}
+                      className="text-foreground/80"
+                    />
                     {getTotalItems() > 0 && (
                       <span className="absolute -top-1 -right-1 h-4 w-4 rounded-full bg-foreground text-background text-xs flex items-center justify-center font-medium">
                         {getTotalItems()}
@@ -462,27 +563,40 @@ function Index() {
                   <SheetHeader>
                     <SheetTitle>{t.cart}</SheetTitle>
                     <SheetDescription>
-                      {cart.length === 0 ? t.emptyCart : `${getTotalItems()} товар(ов) на сумму ${getTotalPrice().toLocaleString()} ₽`}
+                      {cart.length === 0
+                        ? t.emptyCart
+                        : `${getTotalItems()} товар(ов) на сумму ${getTotalPrice().toLocaleString()} ₽`}
                     </SheetDescription>
                   </SheetHeader>
                   <div className="mt-8">
                     {cart.length === 0 ? (
                       <div className="text-center py-8">
-                        <Icon name="ShoppingBag" size={48} className="mx-auto text-muted-foreground mb-4" />
-                        <p className="text-muted-foreground">Добавьте товары в корзину</p>
+                        <Icon
+                          name="ShoppingBag"
+                          size={48}
+                          className="mx-auto text-muted-foreground mb-4"
+                        />
+                        <p className="text-muted-foreground">
+                          Добавьте товары в корзину
+                        </p>
                       </div>
                     ) : (
                       <>
                         <div className="space-y-4 max-h-[60vh] overflow-y-auto">
                           {cart.map((item) => (
-                            <div key={item.product.id} className="flex items-center space-x-4 bg-card p-4 rounded-lg">
+                            <div
+                              key={item.product.id}
+                              className="flex items-center space-x-4 bg-card p-4 rounded-lg"
+                            >
                               <img
                                 src={item.product.image}
                                 alt={item.product.name}
                                 className="h-16 w-16 object-cover rounded"
                               />
                               <div className="flex-1">
-                                <h4 className="font-medium text-sm">{item.product.name}</h4>
+                                <h4 className="font-medium text-sm">
+                                  {item.product.name}
+                                </h4>
                                 <p className="text-vintage-chocolate font-bold">
                                   {item.product.price.toLocaleString()} ₽
                                 </p>
@@ -491,22 +605,36 @@ function Index() {
                                 <Button
                                   variant="outline"
                                   size="sm"
-                                  onClick={() => updateCartQuantity(item.product.id, item.quantity - 1)}
+                                  onClick={() =>
+                                    updateCartQuantity(
+                                      item.product.id,
+                                      item.quantity - 1,
+                                    )
+                                  }
                                 >
                                   <Icon name="Minus" size={16} />
                                 </Button>
-                                <span className="w-8 text-center">{item.quantity}</span>
+                                <span className="w-8 text-center">
+                                  {item.quantity}
+                                </span>
                                 <Button
                                   variant="outline"
                                   size="sm"
-                                  onClick={() => updateCartQuantity(item.product.id, item.quantity + 1)}
+                                  onClick={() =>
+                                    updateCartQuantity(
+                                      item.product.id,
+                                      item.quantity + 1,
+                                    )
+                                  }
                                 >
                                   <Icon name="Plus" size={16} />
                                 </Button>
                                 <Button
                                   variant="ghost"
                                   size="sm"
-                                  onClick={() => removeFromCart(item.product.id)}
+                                  onClick={() =>
+                                    removeFromCart(item.product.id)
+                                  }
                                 >
                                   <Icon name="Trash2" size={16} />
                                 </Button>
@@ -520,7 +648,10 @@ function Index() {
                             <span>{t.total}:</span>
                             <span>{getTotalPrice().toLocaleString()} ₽</span>
                           </div>
-                          <Dialog open={isOrderDialogOpen} onOpenChange={setIsOrderDialogOpen}>
+                          <Dialog
+                            open={isOrderDialogOpen}
+                            onOpenChange={setIsOrderDialogOpen}
+                          >
                             <DialogTrigger asChild>
                               <Button className="w-full bg-vintage-chocolate hover:bg-vintage-dark-brown">
                                 {t.checkout}
@@ -539,7 +670,12 @@ function Index() {
                                   <Input
                                     id="name"
                                     value={orderForm.name}
-                                    onChange={(e) => setOrderForm({...orderForm, name: e.target.value})}
+                                    onChange={(e) =>
+                                      setOrderForm({
+                                        ...orderForm,
+                                        name: e.target.value,
+                                      })
+                                    }
                                     placeholder="Ваше имя"
                                   />
                                 </div>
@@ -549,7 +685,12 @@ function Index() {
                                     id="email"
                                     type="email"
                                     value={orderForm.email}
-                                    onChange={(e) => setOrderForm({...orderForm, email: e.target.value})}
+                                    onChange={(e) =>
+                                      setOrderForm({
+                                        ...orderForm,
+                                        email: e.target.value,
+                                      })
+                                    }
                                     placeholder="your@email.com"
                                   />
                                 </div>
@@ -558,25 +699,44 @@ function Index() {
                                   <Input
                                     id="phone"
                                     value={orderForm.phone}
-                                    onChange={(e) => setOrderForm({...orderForm, phone: e.target.value})}
+                                    onChange={(e) =>
+                                      setOrderForm({
+                                        ...orderForm,
+                                        phone: e.target.value,
+                                      })
+                                    }
                                     placeholder="+7 (___) ___-__-__"
                                   />
                                 </div>
                                 <div className="grid gap-2">
-                                  <Label htmlFor="address">Адрес доставки</Label>
+                                  <Label htmlFor="address">
+                                    Адрес доставки
+                                  </Label>
                                   <Textarea
                                     id="address"
                                     value={orderForm.address}
-                                    onChange={(e) => setOrderForm({...orderForm, address: e.target.value})}
+                                    onChange={(e) =>
+                                      setOrderForm({
+                                        ...orderForm,
+                                        address: e.target.value,
+                                      })
+                                    }
                                     placeholder="Введите полный адрес доставки"
                                   />
                                 </div>
                                 <div className="grid gap-2">
-                                  <Label htmlFor="comment">Комментарий к заказу</Label>
+                                  <Label htmlFor="comment">
+                                    Комментарий к заказу
+                                  </Label>
                                   <Textarea
                                     id="comment"
                                     value={orderForm.comment}
-                                    onChange={(e) => setOrderForm({...orderForm, comment: e.target.value})}
+                                    onChange={(e) =>
+                                      setOrderForm({
+                                        ...orderForm,
+                                        comment: e.target.value,
+                                      })
+                                    }
                                     placeholder="Дополнительные пожелания (необязательно)"
                                   />
                                 </div>
@@ -584,7 +744,9 @@ function Index() {
                               <div className="bg-muted p-4 rounded-lg">
                                 <div className="flex justify-between font-bold text-lg">
                                   <span>К оплате:</span>
-                                  <span>{getTotalPrice().toLocaleString()} ₽</span>
+                                  <span>
+                                    {getTotalPrice().toLocaleString()} ₽
+                                  </span>
                                 </div>
                               </div>
                               <DialogFooter>
@@ -592,7 +754,12 @@ function Index() {
                                   type="submit"
                                   onClick={handleOrderSubmit}
                                   className="bg-vintage-chocolate hover:bg-vintage-dark-brown"
-                                  disabled={!orderForm.name || !orderForm.email || !orderForm.phone || !orderForm.address}
+                                  disabled={
+                                    !orderForm.name ||
+                                    !orderForm.email ||
+                                    !orderForm.phone ||
+                                    !orderForm.address
+                                  }
                                 >
                                   Подтвердить заказ
                                 </Button>
@@ -620,9 +787,9 @@ function Index() {
           <p className="text-lg text-muted-foreground mb-8 max-w-xl mx-auto font-light">
             {t.heroSubtitle}
           </p>
-          <Button 
-            variant="outline" 
-            size="lg" 
+          <Button
+            variant="outline"
+            size="lg"
             className="border-2 border-foreground text-foreground hover:bg-foreground hover:text-background px-8 py-3 font-medium tracking-wider"
           >
             {t.shopNow}
@@ -661,7 +828,10 @@ function Index() {
             </div>
             <div>
               <label className="text-sm font-medium mb-2 block">Материал</label>
-              <Select value={selectedMaterial} onValueChange={setSelectedMaterial}>
+              <Select
+                value={selectedMaterial}
+                onValueChange={setSelectedMaterial}
+              >
                 <SelectTrigger>
                   <SelectValue placeholder="Все материалы" />
                 </SelectTrigger>
@@ -727,7 +897,13 @@ function Index() {
               </span>
             </div>
             <div className="flex items-center space-x-4">
-              <Select value={sortBy} onValueChange={(value) => { setSortBy(value); applyFilters(); }}>
+              <Select
+                value={sortBy}
+                onValueChange={(value) => {
+                  setSortBy(value);
+                  applyFilters();
+                }}
+              >
                 <SelectTrigger className="w-40 h-8 text-xs border-none bg-transparent">
                   <SelectValue placeholder={t.sortBy} />
                 </SelectTrigger>
@@ -740,7 +916,11 @@ function Index() {
               </Select>
               <div className="flex items-center space-x-1">
                 <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
-                  <Icon name="Grid3X3" size={16} className="text-foreground/60" />
+                  <Icon
+                    name="Grid3X3"
+                    size={16}
+                    className="text-foreground/60"
+                  />
                 </Button>
                 <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
                   <Icon name="List" size={16} className="text-foreground/60" />
@@ -748,10 +928,14 @@ function Index() {
               </div>
             </div>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {filteredProducts.map((product) => (
-              <div key={product.id} className="group cursor-pointer" onClick={() => openProductDetails(product)}>
+              <div
+                key={product.id}
+                className="group cursor-pointer"
+                onClick={() => openProductDetails(product)}
+              >
                 <div className="relative overflow-hidden bg-white rounded-sm">
                   <img
                     src={product.image}
@@ -766,30 +950,30 @@ function Index() {
                     </div>
                   )}
                   <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <Button 
-                      size="sm" 
-                      variant="ghost" 
+                    <Button
+                      size="sm"
+                      variant="ghost"
                       className="h-8 w-8 p-0 bg-white/90 hover:bg-white rounded-full"
                       onClick={(e) => e.stopPropagation()}
                     >
                       <Icon name="Heart" size={14} />
                     </Button>
                   </div>
-                  
+
                   {/* Quick Add Button - appears on hover */}
                   <div className="absolute bottom-3 left-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <Button 
+                    <Button
                       className="w-full bg-black hover:bg-gray-800 text-white h-10 text-sm font-medium"
                       onClick={(e) => {
-                        e.stopPropagation()
-                        addToCart(product)
+                        e.stopPropagation();
+                        addToCart(product);
                       }}
                     >
                       {t.addToCart}
                     </Button>
                   </div>
                 </div>
-                
+
                 <div className="pt-3 space-y-1">
                   <h3 className="font-medium text-sm leading-tight group-hover:text-gray-600 transition-colors">
                     {product.name}
@@ -818,26 +1002,58 @@ function Index() {
             <div>
               <h3 className="text-xl font-bold mb-4">VINTAGE FURNITURE</h3>
               <p className="text-sm opacity-80">
-                Ваш надежный партнер в мире винтажной мебели. 
-                Качество, проверенное временем.
+                Ваш надежный партнер в мире винтажной мебели. Качество,
+                проверенное временем.
               </p>
             </div>
             <div>
               <h4 className="font-semibold mb-4">Каталог</h4>
               <ul className="space-y-2 text-sm opacity-80">
-                <li><a href="#" className="hover:opacity-100">Кресла</a></li>
-                <li><a href="#" className="hover:opacity-100">Столы</a></li>
-                <li><a href="#" className="hover:opacity-100">Шкафы</a></li>
-                <li><a href="#" className="hover:opacity-100">Комоды</a></li>
+                <li>
+                  <a href="#" className="hover:opacity-100">
+                    Кресла
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:opacity-100">
+                    Столы
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:opacity-100">
+                    Шкафы
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:opacity-100">
+                    Комоды
+                  </a>
+                </li>
               </ul>
             </div>
             <div>
               <h4 className="font-semibold mb-4">Информация</h4>
               <ul className="space-y-2 text-sm opacity-80">
-                <li><a href="#" className="hover:opacity-100">О нас</a></li>
-                <li><a href="#" className="hover:opacity-100">Доставка</a></li>
-                <li><a href="#" className="hover:opacity-100">Оплата</a></li>
-                <li><a href="#" className="hover:opacity-100">Контакты</a></li>
+                <li>
+                  <a href="#" className="hover:opacity-100">
+                    О нас
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:opacity-100">
+                    Доставка
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:opacity-100">
+                    Оплата
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:opacity-100">
+                    Контакты
+                  </a>
+                </li>
               </ul>
             </div>
             <div>
@@ -846,9 +1062,21 @@ function Index() {
                 <p>+7 (495) 123-45-67</p>
                 <p>info@vintage-furniture.ru</p>
                 <div className="flex space-x-4 mt-4">
-                  <Icon name="Instagram" size={20} className="hover:opacity-100 cursor-pointer" />
-                  <Icon name="Facebook" size={20} className="hover:opacity-100 cursor-pointer" />
-                  <Icon name="Twitter" size={20} className="hover:opacity-100 cursor-pointer" />
+                  <Icon
+                    name="Instagram"
+                    size={20}
+                    className="hover:opacity-100 cursor-pointer"
+                  />
+                  <Icon
+                    name="Facebook"
+                    size={20}
+                    className="hover:opacity-100 cursor-pointer"
+                  />
+                  <Icon
+                    name="Twitter"
+                    size={20}
+                    className="hover:opacity-100 cursor-pointer"
+                  />
                 </div>
               </div>
             </div>
@@ -865,7 +1093,9 @@ function Index() {
           {selectedProduct && (
             <>
               <DialogHeader>
-                <DialogTitle className="text-2xl">{selectedProduct.name}</DialogTitle>
+                <DialogTitle className="text-2xl">
+                  {selectedProduct.name}
+                </DialogTitle>
               </DialogHeader>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Large Product Image */}
@@ -881,7 +1111,7 @@ function Index() {
                     </Badge>
                   )}
                 </div>
-                
+
                 {/* Product Details */}
                 <div className="space-y-4">
                   <div>
@@ -895,59 +1125,69 @@ function Index() {
                         </span>
                       )}
                     </div>
-                    <p className="text-muted-foreground text-lg">{selectedProduct.description}</p>
+                    <p className="text-muted-foreground text-lg">
+                      {selectedProduct.description}
+                    </p>
                   </div>
-                  
+
                   <Separator />
-                  
+
                   {/* Product Specifications */}
                   <div className="space-y-3">
                     <h4 className="font-semibold text-lg">Характеристики</h4>
                     <div className="grid grid-cols-2 gap-4 text-sm">
                       <div>
                         <span className="font-medium">Категория:</span>
-                        <p className="text-muted-foreground">{selectedProduct.category}</p>
+                        <p className="text-muted-foreground">
+                          {selectedProduct.category}
+                        </p>
                       </div>
                       <div>
                         <span className="font-medium">Стиль:</span>
-                        <p className="text-muted-foreground">{selectedProduct.style}</p>
+                        <p className="text-muted-foreground">
+                          {selectedProduct.style}
+                        </p>
                       </div>
                       <div>
                         <span className="font-medium">Материал:</span>
-                        <p className="text-muted-foreground">{selectedProduct.material}</p>
+                        <p className="text-muted-foreground">
+                          {selectedProduct.material}
+                        </p>
                       </div>
                       <div>
                         <span className="font-medium">Размер:</span>
-                        <p className="text-muted-foreground">{selectedProduct.size}</p>
+                        <p className="text-muted-foreground">
+                          {selectedProduct.size}
+                        </p>
                       </div>
                     </div>
                   </div>
-                  
+
                   <Separator />
-                  
+
                   {/* Action Buttons */}
                   <div className="space-y-3">
-                    <Button 
-                      className="w-full" 
+                    <Button
+                      className="w-full"
                       size="lg"
                       onClick={(e) => {
-                        e.stopPropagation()
-                        addToCart(selectedProduct)
-                        setIsProductDialogOpen(false)
+                        e.stopPropagation();
+                        addToCart(selectedProduct);
+                        setIsProductDialogOpen(false);
                       }}
                     >
                       <Icon name="ShoppingCart" size={20} className="mr-2" />
                       {t.addToCart}
                     </Button>
-                    <Button 
-                      variant="outline" 
-                      className="w-full" 
+                    <Button
+                      variant="outline"
+                      className="w-full"
                       size="lg"
                       onClick={(e) => {
-                        e.stopPropagation()
-                        addToCart(selectedProduct)
-                        setIsProductDialogOpen(false)
-                        setIsOrderDialogOpen(true)
+                        e.stopPropagation();
+                        addToCart(selectedProduct);
+                        setIsProductDialogOpen(false);
+                        setIsOrderDialogOpen(true);
                       }}
                     >
                       <Icon name="Zap" size={20} className="mr-2" />
@@ -961,7 +1201,7 @@ function Index() {
         </DialogContent>
       </Dialog>
     </div>
-  )
+  );
 }
 
-export default Index
+export default Index;
