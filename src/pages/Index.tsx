@@ -511,7 +511,7 @@ function Index() {
                   <img
                     src={product.image}
                     alt={product.name}
-                    className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+                    className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500 ease-out"
                   />
                   {product.originalPrice && (
                     <Badge className="absolute top-4 left-4 bg-destructive text-destructive-foreground">
