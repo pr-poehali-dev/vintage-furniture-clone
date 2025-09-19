@@ -126,83 +126,18 @@ export default function FiltersSection({
             <label className="text-sm font-medium text-gray-700 block">
               Цена (₽)
             </label>
-            <div className="p-4 border border-gray-200 rounded-lg bg-gray-50 space-y-4">
-              {/* Price Input Fields */}
-              <div className="flex items-center space-x-3">
-                <div className="flex-1">
-                  <label className="text-xs text-gray-500 block mb-1">От</label>
-                  <Input
-                    type="number"
-                    value={priceRange[0] === 0 ? '' : priceRange[0]}
-                    onChange={(e) => {
-                      const value = e.target.value === '' ? 0 : Number(e.target.value);
-                      if (value >= 0 && value <= priceRange[1]) {
-                        setPriceRange([Math.floor(value), priceRange[1]]);
-                      }
-                    }}
-                    onBlur={(e) => {
-                      const value = Number(e.target.value) || 0;
-                      const validValue = Math.max(0, Math.min(value, priceRange[1]));
-                      setPriceRange([validValue, priceRange[1]]);
-                    }}
-                    className="h-9 text-sm border-gray-300 rounded focus:border-gray-900 focus:ring-1 focus:ring-gray-900"
-                    placeholder="0"
-                    min="0"
-                    max={priceRange[1]}
-                  />
-                </div>
-                <div className="text-gray-400 pt-6 text-sm">—</div>
-                <div className="flex-1">
-                  <label className="text-xs text-gray-500 block mb-1">До</label>
-                  <Input
-                    type="number"
-                    value={priceRange[1] === 100000 ? '' : priceRange[1]}
-                    onChange={(e) => {
-                      const value = e.target.value === '' ? 100000 : Number(e.target.value);
-                      if (value >= priceRange[0] && value <= 100000) {
-                        setPriceRange([priceRange[0], Math.floor(value)]);
-                      }
-                    }}
-                    onBlur={(e) => {
-                      const value = Number(e.target.value) || 100000;
-                      const validValue = Math.max(priceRange[0], Math.min(value, 100000));
-                      setPriceRange([priceRange[0], validValue]);
-                    }}
-                    className="h-9 text-sm border-gray-300 rounded focus:border-gray-900 focus:ring-1 focus:ring-gray-900"
-                    placeholder="100000"
-                    min={priceRange[0]}
-                    max="100000"
-                  />
-                </div>
-              </div>
-
-              {/* Price Slider */}
-              <div className="px-1">
-                <Slider
-                  value={priceRange}
-                  onValueChange={setPriceRange}
-                  max={100000}
-                  min={0}
-                  step={1000}
-                  className="w-full"
-                />
-                <div className="flex justify-between text-xs text-gray-400 mt-2">
-                  <span>0</span>
-                  <span>50К</span>
-                  <span>100К</span>
-                </div>
-              </div>
-
-              {/* Current Selection Display */}
-              <div className="text-center">
-                <div className="inline-flex items-center space-x-2 bg-white border border-gray-200 rounded px-3 py-1">
-                  <span className="text-sm font-medium text-gray-700">
-                    {priceRange[0] === 0 && priceRange[1] === 100000 
-                      ? 'Любая цена' 
-                      : `${priceRange[0].toLocaleString()} — ${priceRange[1].toLocaleString()} ₽`
-                    }
-                  </span>
-                </div>
+            <div className="p-4 border border-gray-200 rounded-lg bg-gray-50">
+              <Slider
+                value={priceRange}
+                onValueChange={setPriceRange}
+                max={1000000}
+                min={0}
+                step={10000}
+                className="w-full mb-3"
+              />
+              <div className="flex justify-between text-xs text-gray-600">
+                <span>{priceRange[0].toLocaleString()}</span>
+                <span>{priceRange[1].toLocaleString()}</span>
               </div>
             </div>
           </div>

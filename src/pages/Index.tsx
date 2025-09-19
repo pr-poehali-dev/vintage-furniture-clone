@@ -446,7 +446,7 @@ const translations = {
 
 function Index() {
   const [filteredProducts, setFilteredProducts] = useState(products);
-  const [priceRange, setPriceRange] = useState([0, 100000]);
+  const [priceRange, setPriceRange] = useState([0, 1000000]);
   const [selectedStyle, setSelectedStyle] = useState<string>("all");
   const [selectedMaterial, setSelectedMaterial] = useState<string>("all");
   const [selectedSize, setSelectedSize] = useState<string>("all");
@@ -633,7 +633,7 @@ function Index() {
   };
 
   const resetFilters = () => {
-    setPriceRange([0, 100000]);
+    setPriceRange([0, 1000000]);
     setSelectedStyle("all");
     setSelectedMaterial("all");
     setSelectedSize("all");
