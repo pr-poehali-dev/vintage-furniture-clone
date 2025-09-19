@@ -38,113 +38,95 @@ export default function FiltersSection({
   resetFilters,
 }: FiltersSectionProps) {
   return (
-    <section className="py-8 bg-gradient-to-r from-vintage-wheat/10 to-vintage-tan/10 border-y border-vintage-chocolate/20">
+    <section className="py-12 bg-white border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-4">
-        {/* Main Title */}
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-serif font-bold text-vintage-dark-brown tracking-wide mb-2">
-            НАЙТИ ИДЕАЛЬНУЮ МЕБЕЛЬ
-          </h2>
-          <div className="w-24 h-0.5 bg-vintage-chocolate mx-auto"></div>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-6 gap-6 items-end">
+        <div className="grid grid-cols-1 md:grid-cols-6 gap-8 items-end">
+          
           {/* Search */}
-          <div className="group">
-            <label className="text-sm font-serif font-semibold mb-3 block text-vintage-dark-brown tracking-wider uppercase">
-              🔍 Поиск
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-gray-700 block">
+              Поиск
             </label>
-            <div className="relative">
-              <Input
-                placeholder="Найти мебель..."
-                value={searchTerm}
-                onChange={(e) => handleSearchChange(e.target.value)}
-                className="border-2 border-vintage-tan/40 rounded-xl px-4 py-3 bg-white/80 backdrop-blur-sm 
-                           focus:border-vintage-chocolate focus:ring-2 focus:ring-vintage-chocolate/20 
-                           transition-all duration-300 hover:border-vintage-chocolate/60 
-                           font-serif placeholder:text-vintage-tan placeholder:font-light"
-              />
-              <div className="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-vintage-chocolate/0 via-vintage-chocolate/40 to-vintage-chocolate/0 
-                              transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
-            </div>
+            <Input
+              placeholder="Найти мебель..."
+              value={searchTerm}
+              onChange={(e) => handleSearchChange(e.target.value)}
+              className="border border-gray-200 rounded-lg h-11 px-4 
+                         focus:border-gray-900 focus:ring-1 focus:ring-gray-900 
+                         transition-colors duration-200
+                         placeholder:text-gray-400"
+            />
           </div>
 
           {/* Style */}
-          <div className="group">
-            <label className="text-sm font-serif font-semibold mb-3 block text-vintage-dark-brown tracking-wider uppercase">
-              🎨 Стиль
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-gray-700 block">
+              Стиль
             </label>
             <Select value={selectedStyle} onValueChange={setSelectedStyle}>
-              <SelectTrigger className="border-2 border-vintage-tan/40 rounded-xl px-4 py-3 bg-white/80 backdrop-blur-sm 
-                                       focus:border-vintage-chocolate hover:border-vintage-chocolate/60 
-                                       transition-all duration-300 font-serif">
+              <SelectTrigger className="border border-gray-200 rounded-lg h-11 px-4 
+                                       focus:border-gray-900 focus:ring-1 focus:ring-gray-900 
+                                       transition-colors duration-200">
                 <SelectValue placeholder="Все стили" />
               </SelectTrigger>
-              <SelectContent className="rounded-xl border-2 border-vintage-tan/40 bg-white/95 backdrop-blur-md">
-                <SelectItem value="all" className="font-serif hover:bg-vintage-wheat/20">Все стили</SelectItem>
-                <SelectItem value="Английский" className="font-serif hover:bg-vintage-wheat/20">🇬🇧 Английский</SelectItem>
-                <SelectItem value="Барокко" className="font-serif hover:bg-vintage-wheat/20">👑 Барокко</SelectItem>
-                <SelectItem value="Ампир" className="font-serif hover:bg-vintage-wheat/20">⚜️ Ампир</SelectItem>
-                <SelectItem value="Викторианский" className="font-serif hover:bg-vintage-wheat/20">🎩 Викторианский</SelectItem>
-                <SelectItem value="Людовик XVI" className="font-serif hover:bg-vintage-wheat/20">👸 Людовик XVI</SelectItem>
-                <SelectItem value="Шиппендейл" className="font-serif hover:bg-vintage-wheat/20">🪑 Шиппендейл</SelectItem>
+              <SelectContent className="rounded-lg border border-gray-200 bg-white shadow-lg">
+                <SelectItem value="all" className="hover:bg-gray-50">Все стили</SelectItem>
+                <SelectItem value="Английский" className="hover:bg-gray-50">Английский</SelectItem>
+                <SelectItem value="Барокко" className="hover:bg-gray-50">Барокко</SelectItem>
+                <SelectItem value="Ампир" className="hover:bg-gray-50">Ампир</SelectItem>
+                <SelectItem value="Викторианский" className="hover:bg-gray-50">Викторианский</SelectItem>
+                <SelectItem value="Людовик XVI" className="hover:bg-gray-50">Людовик XVI</SelectItem>
+                <SelectItem value="Шиппендейл" className="hover:bg-gray-50">Шиппендейл</SelectItem>
               </SelectContent>
             </Select>
-            <div className="h-0.5 bg-gradient-to-r from-vintage-chocolate/0 via-vintage-chocolate/40 to-vintage-chocolate/0 
-                            transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 mt-1"></div>
           </div>
 
           {/* Material */}
-          <div className="group">
-            <label className="text-sm font-serif font-semibold mb-3 block text-vintage-dark-brown tracking-wider uppercase">
-              🌳 Материал
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-gray-700 block">
+              Материал
             </label>
             <Select value={selectedMaterial} onValueChange={setSelectedMaterial}>
-              <SelectTrigger className="border-2 border-vintage-tan/40 rounded-xl px-4 py-3 bg-white/80 backdrop-blur-sm 
-                                       focus:border-vintage-chocolate hover:border-vintage-chocolate/60 
-                                       transition-all duration-300 font-serif">
+              <SelectTrigger className="border border-gray-200 rounded-lg h-11 px-4 
+                                       focus:border-gray-900 focus:ring-1 focus:ring-gray-900 
+                                       transition-colors duration-200">
                 <SelectValue placeholder="Все материалы" />
               </SelectTrigger>
-              <SelectContent className="rounded-xl border-2 border-vintage-tan/40 bg-white/95 backdrop-blur-md">
-                <SelectItem value="all" className="font-serif hover:bg-vintage-wheat/20">Все материалы</SelectItem>
-                <SelectItem value="Дуб" className="font-serif hover:bg-vintage-wheat/20">🌰 Дуб</SelectItem>
-                <SelectItem value="Махагон" className="font-serif hover:bg-vintage-wheat/20">🍂 Махагон</SelectItem>
-                <SelectItem value="Орех" className="font-serif hover:bg-vintage-wheat/20">🥜 Орех</SelectItem>
+              <SelectContent className="rounded-lg border border-gray-200 bg-white shadow-lg">
+                <SelectItem value="all" className="hover:bg-gray-50">Все материалы</SelectItem>
+                <SelectItem value="Дуб" className="hover:bg-gray-50">Дуб</SelectItem>
+                <SelectItem value="Махагон" className="hover:bg-gray-50">Махагон</SelectItem>
+                <SelectItem value="Орех" className="hover:bg-gray-50">Орех</SelectItem>
               </SelectContent>
             </Select>
-            <div className="h-0.5 bg-gradient-to-r from-vintage-chocolate/0 via-vintage-chocolate/40 to-vintage-chocolate/0 
-                            transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 mt-1"></div>
           </div>
 
           {/* Size */}
-          <div className="group">
-            <label className="text-sm font-serif font-semibold mb-3 block text-vintage-dark-brown tracking-wider uppercase">
-              📏 Размер
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-gray-700 block">
+              Размер
             </label>
             <Select value={selectedSize} onValueChange={setSelectedSize}>
-              <SelectTrigger className="border-2 border-vintage-tan/40 rounded-xl px-4 py-3 bg-white/80 backdrop-blur-sm 
-                                       focus:border-vintage-chocolate hover:border-vintage-chocolate/60 
-                                       transition-all duration-300 font-serif">
+              <SelectTrigger className="border border-gray-200 rounded-lg h-11 px-4 
+                                       focus:border-gray-900 focus:ring-1 focus:ring-gray-900 
+                                       transition-colors duration-200">
                 <SelectValue placeholder="Все размеры" />
               </SelectTrigger>
-              <SelectContent className="rounded-xl border-2 border-vintage-tan/40 bg-white/95 backdrop-blur-md">
-                <SelectItem value="all" className="font-serif hover:bg-vintage-wheat/20">Все размеры</SelectItem>
-                <SelectItem value="Малый" className="font-serif hover:bg-vintage-wheat/20">📦 Малый</SelectItem>
-                <SelectItem value="Средний" className="font-serif hover:bg-vintage-wheat/20">📋 Средний</SelectItem>
-                <SelectItem value="Большой" className="font-serif hover:bg-vintage-wheat/20">📊 Большой</SelectItem>
+              <SelectContent className="rounded-lg border border-gray-200 bg-white shadow-lg">
+                <SelectItem value="all" className="hover:bg-gray-50">Все размеры</SelectItem>
+                <SelectItem value="Малый" className="hover:bg-gray-50">Малый</SelectItem>
+                <SelectItem value="Средний" className="hover:bg-gray-50">Средний</SelectItem>
+                <SelectItem value="Большой" className="hover:bg-gray-50">Большой</SelectItem>
               </SelectContent>
             </Select>
-            <div className="h-0.5 bg-gradient-to-r from-vintage-chocolate/0 via-vintage-chocolate/40 to-vintage-chocolate/0 
-                            transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 mt-1"></div>
           </div>
 
           {/* Price Range */}
-          <div className="group">
-            <label className="text-sm font-serif font-semibold mb-3 block text-vintage-dark-brown tracking-wider uppercase">
-              💰 Цена (₽)
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-gray-700 block">
+              Цена (₽)
             </label>
-            <div className="bg-white/80 backdrop-blur-sm border-2 border-vintage-tan/40 rounded-xl p-4 
-                            hover:border-vintage-chocolate/60 transition-all duration-300">
+            <div className="p-4 border border-gray-200 rounded-lg bg-gray-50">
               <Slider
                 value={priceRange}
                 onValueChange={setPriceRange}
@@ -153,18 +135,11 @@ export default function FiltersSection({
                 step={5000}
                 className="w-full mb-3"
               />
-              <div className="flex justify-between items-center text-xs font-serif font-medium">
-                <div className="bg-vintage-chocolate/10 px-2 py-1 rounded-lg">
-                  <span className="text-vintage-dark-brown">{priceRange[0].toLocaleString()}</span>
-                </div>
-                <div className="flex-1 h-px bg-gradient-to-r from-vintage-tan to-vintage-chocolate mx-2"></div>
-                <div className="bg-vintage-chocolate/10 px-2 py-1 rounded-lg">
-                  <span className="text-vintage-dark-brown">{priceRange[1].toLocaleString()}</span>
-                </div>
+              <div className="flex justify-between text-xs text-gray-600">
+                <span>{priceRange[0].toLocaleString()}</span>
+                <span>{priceRange[1].toLocaleString()}</span>
               </div>
             </div>
-            <div className="h-0.5 bg-gradient-to-r from-vintage-chocolate/0 via-vintage-chocolate/40 to-vintage-chocolate/0 
-                            transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 mt-1"></div>
           </div>
 
           {/* Reset Button */}
@@ -172,30 +147,13 @@ export default function FiltersSection({
             <Button 
               variant="outline" 
               onClick={resetFilters} 
-              className="border-2 border-vintage-chocolate/60 bg-white/80 backdrop-blur-sm rounded-xl px-6 py-3 
-                         hover:bg-vintage-chocolate hover:text-white hover:border-vintage-chocolate 
-                         transition-all duration-300 font-serif font-semibold tracking-wide
-                         transform hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl"
+              className="border border-gray-300 rounded-lg px-4 h-11
+                         hover:bg-gray-900 hover:text-white hover:border-gray-900 
+                         transition-colors duration-200"
             >
-              <Icon name="RotateCcw" size={18} className="mr-2" />
-              ✨ Сбросить фильтры
+              <Icon name="RotateCcw" size={16} className="mr-2" />
+              Сбросить
             </Button>
-          </div>
-        </div>
-
-        {/* Filter Status Indicator */}
-        <div className="mt-6 text-center">
-          <div className="inline-flex items-center space-x-2 bg-vintage-chocolate/10 px-4 py-2 rounded-full">
-            <Icon name="Filter" size={16} className="text-vintage-chocolate" />
-            <span className="text-sm font-serif text-vintage-dark-brown">
-              Активные фильтры: {[
-                searchTerm && 'поиск',
-                selectedStyle !== 'all' && 'стиль',
-                selectedMaterial !== 'all' && 'материал',
-                selectedSize !== 'all' && 'размер',
-                (priceRange[0] > 0 || priceRange[1] < 100000) && 'цена'
-              ].filter(Boolean).length || 'нет'}
-            </span>
           </div>
         </div>
       </div>
