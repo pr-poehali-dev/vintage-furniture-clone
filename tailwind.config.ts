@@ -67,7 +67,9 @@ export default {
 					terracotta: '#D2691E', 
 					wheat: '#F5DEB3',
 					'dark-brown': '#2F1B14',
-					serigon: '#2F1B14'
+					serigon: '#2F1B14',
+					tan: '#D2B48C',
+					red: '#B22222'
 				},
 				lonefox: {
 					sage: '#9CAD8C',
@@ -104,6 +106,10 @@ export default {
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out'
+			},
+			fontFamily: {
+				serif: ['Georgia', 'Times New Roman', 'serif'],
+				sans: ['ui-sans-serif', 'system-ui', 'sans-serif']
 			}
 		}
 	},
