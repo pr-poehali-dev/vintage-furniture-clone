@@ -10,7 +10,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import Icon from "@/components/ui/icon";
-import { Language, CartItem } from "@/types";
+import { Language, CartItem, User } from "@/types";
 
 interface HeaderProps {
   t: Language;
@@ -23,6 +23,9 @@ interface HeaderProps {
   isCartOpen: boolean;
   setIsCartOpen: (open: boolean) => void;
   setIsOrderDialogOpen: (open: boolean) => void;
+  user: User | null;
+  setIsAuthDialogOpen: (open: boolean) => void;
+  setIsProfileDialogOpen: (open: boolean) => void;
 }
 
 export default function Header({
@@ -36,6 +39,9 @@ export default function Header({
   isCartOpen,
   setIsCartOpen,
   setIsOrderDialogOpen,
+  user,
+  setIsAuthDialogOpen,
+  setIsProfileDialogOpen,
 }: HeaderProps) {
   const updateQuantity = (id: number, newQuantity: number) => {
     if (newQuantity <= 0) {
@@ -158,6 +164,20 @@ export default function Header({
                 IT
               </Button>
             </div>
+
+            {/* Profile/Auth Button */}
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => user ? setIsProfileDialogOpen(true) : setIsAuthDialogOpen(true)}
+              className="relative"
+            >
+              <Icon name="User" size={20} />
+              {user && (
+                <Badge className="absolute -top-1 -right-1 h-2 w-2 rounded-full p-0 bg-green-500">
+                </Badge>
+              )}
+            </Button>
 
             <Sheet open={isCartOpen} onOpenChange={setIsCartOpen}>
               <SheetTrigger asChild>
