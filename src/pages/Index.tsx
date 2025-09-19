@@ -754,7 +754,7 @@ function Index() {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="border-b border-border/20 bg-background">
+      <header className="sticky top-0 z-50 border-b border-border/20 bg-background/95 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-4 py-5">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-12">
@@ -1241,7 +1241,7 @@ function Index() {
       </header>
 
       {/* Hero Section */}
-      <section className="py-16 lg:py-20">
+      <section className="py-16 lg:py-20 pt-20">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <h2 className="text-4xl lg:text-6xl font-normal text-foreground mb-6 tracking-tight">
             {t.heroTitle}
