@@ -93,391 +93,425 @@ export default function AuthDialog({
       onOpenChange(open);
       if (!open) resetForms();
     }}>
-      <DialogContent className="max-w-lg">
-        <DialogHeader className="text-center space-y-3">
-          <div className="mx-auto w-16 h-16 bg-vintage-chocolate/10 rounded-full flex items-center justify-center">
-            <Icon 
-              name={activeTab === "login" ? "LogIn" : "UserPlus"} 
-              size={32} 
-              className="text-vintage-chocolate" 
-            />
+      <DialogContent className="max-w-xl border-0 shadow-2xl bg-gradient-to-br from-white via-gray-50 to-white">
+        <DialogHeader className="text-center space-y-6 pb-8">
+          <div className="mx-auto">
+            <div className="w-20 h-20 mx-auto bg-gradient-to-br from-vintage-chocolate to-vintage-dark-brown rounded-full flex items-center justify-center shadow-lg border-4 border-white">
+              <Icon 
+                name={activeTab === "login" ? "Crown" : "Sparkles"} 
+                size={28} 
+                className="text-white" 
+              />
+            </div>
           </div>
-          <DialogTitle className="text-2xl font-semibold">
-            {activeTab === "login" ? t.welcomeBack : t.createAccount}
-          </DialogTitle>
-          <DialogDescription className="text-base">
-            {activeTab === "login" 
-              ? "Войдите в свой аккаунт для продолжения покупок и отслеживания заказов"
-              : "Создайте аккаунт для персонализированного опыта покупок"
-            }
-          </DialogDescription>
+          <div className="space-y-3">
+            <DialogTitle className="text-3xl font-light tracking-wide text-gray-800">
+              {activeTab === "login" ? "Welcome Back" : "Join Our Exclusive Club"}
+            </DialogTitle>
+            <DialogDescription className="text-lg text-gray-600 font-light leading-relaxed">
+              {activeTab === "login" 
+                ? "Access your curated collection of luxury furniture"
+                : "Experience the finest in European craftsmanship"
+              }
+            </DialogDescription>
+          </div>
         </DialogHeader>
 
         <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList className="grid w-full grid-cols-2 bg-muted/30 p-1 rounded-lg">
+          <TabsList className="grid w-full grid-cols-2 bg-gray-100/80 p-2 rounded-xl border shadow-inner">
             <TabsTrigger 
               value="login" 
-              className="data-[state=active]:bg-white data-[state=active]:shadow-sm font-medium"
+              className="data-[state=active]:bg-white data-[state=active]:shadow-md data-[state=active]:border data-[state=active]:border-gray-200 font-medium text-gray-700 rounded-lg transition-all duration-200"
             >
-              <Icon name="LogIn" size={16} className="mr-2" />
-              {t.login}
+              <Icon name="KeyRound" size={18} className="mr-2" />
+              Sign In
             </TabsTrigger>
             <TabsTrigger 
               value="register" 
-              className="data-[state=active]:bg-white data-[state=active]:shadow-sm font-medium"
+              className="data-[state=active]:bg-white data-[state=active]:shadow-md data-[state=active]:border data-[state=active]:border-gray-200 font-medium text-gray-700 rounded-lg transition-all duration-200"
             >
-              <Icon name="UserPlus" size={16} className="mr-2" />
-              {t.register}
+              <Icon name="Gem" size={18} className="mr-2" />
+              Register
             </TabsTrigger>
           </TabsList>
 
-          <TabsContent value="login" className="space-y-6 mt-6">
-            {/* Login Benefits */}
-            <div className="bg-muted/30 p-4 rounded-lg space-y-3">
-              <h4 className="font-medium text-sm flex items-center">
-                <Icon name="Gift" size={16} className="mr-2 text-vintage-chocolate" />
-                Преимущества входа
-              </h4>
-              <div className="grid grid-cols-2 gap-3 text-xs text-muted-foreground">
-                <div className="flex items-center">
-                  <Icon name="ShoppingCart" size={12} className="mr-2" />
-                  Сохранение корзины
-                </div>
-                <div className="flex items-center">
-                  <Icon name="Package" size={12} className="mr-2" />
-                  История заказов
-                </div>
-                <div className="flex items-center">
-                  <Icon name="Heart" size={12} className="mr-2" />
-                  Список желаний
-                </div>
-                <div className="flex items-center">
-                  <Icon name="Percent" size={12} className="mr-2" />
-                  Персональные скидки
+          <TabsContent value="login" className="space-y-8 mt-8">
+            {/* Elegant Login Benefits */}
+            <div className="relative overflow-hidden bg-gradient-to-r from-vintage-chocolate/5 via-vintage-chocolate/3 to-vintage-chocolate/5 p-6 rounded-2xl border border-vintage-chocolate/20">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-vintage-chocolate/5 rounded-full -translate-y-16 translate-x-16"></div>
+              <div className="relative">
+                <h4 className="font-light text-lg text-gray-800 mb-4 flex items-center">
+                  <Icon name="Crown" size={20} className="mr-3 text-vintage-chocolate" />
+                  Member Privileges
+                </h4>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-8 h-8 bg-vintage-chocolate/10 rounded-full flex items-center justify-center">
+                      <Icon name="ShoppingBag" size={14} className="text-vintage-chocolate" />
+                    </div>
+                    <span className="text-sm text-gray-600">Saved Collections</span>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <div className="w-8 h-8 bg-vintage-chocolate/10 rounded-full flex items-center justify-center">
+                      <Icon name="Clock" size={14} className="text-vintage-chocolate" />
+                    </div>
+                    <span className="text-sm text-gray-600">Order Tracking</span>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <div className="w-8 h-8 bg-vintage-chocolate/10 rounded-full flex items-center justify-center">
+                      <Icon name="Heart" size={14} className="text-vintage-chocolate" />
+                    </div>
+                    <span className="text-sm text-gray-600">Wishlist</span>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <div className="w-8 h-8 bg-vintage-chocolate/10 rounded-full flex items-center justify-center">
+                      <Icon name="Zap" size={14} className="text-vintage-chocolate" />
+                    </div>
+                    <span className="text-sm text-gray-600">Early Access</span>
+                  </div>
                 </div>
               </div>
             </div>
             
-            <div className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="identifier" className="flex items-center">
-                  <Icon name="User" size={16} className="mr-2" />
-                  Email, телефон или Telegram
+            <div className="space-y-6">
+              <div className="space-y-3">
+                <Label htmlFor="identifier" className="text-sm font-medium text-gray-700 tracking-wide">
+                  Email or Phone
                 </Label>
-                <Input
-                  id="identifier"
-                  type="text"
-                  placeholder="user@example.com, +7 900 123-45-67 или @username"
-                  value={loginForm.identifier}
-                  onChange={(e) =>
-                    setLoginForm({ ...loginForm, identifier: e.target.value })
-                  }
-                  className="h-11"
-                />
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                    <Icon name="Mail" size={18} className="text-gray-400" />
+                  </div>
+                  <Input
+                    id="identifier"
+                    type="text"
+                    placeholder="Enter your email or phone number"
+                    value={loginForm.identifier}
+                    onChange={(e) =>
+                      setLoginForm({ ...loginForm, identifier: e.target.value })
+                    }
+                    className="h-14 pl-12 rounded-xl border-gray-200 focus:border-vintage-chocolate focus:ring-vintage-chocolate/20 text-base bg-white shadow-sm"
+                  />
+                </div>
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="login-password" className="flex items-center">
-                  <Icon name="Lock" size={16} className="mr-2" />
-                  {t.password}
+              
+              <div className="space-y-3">
+                <Label htmlFor="login-password" className="text-sm font-medium text-gray-700 tracking-wide">
+                  Password
                 </Label>
-                <Input
-                  id="login-password"
-                  type="password"
-                  placeholder="Введите пароль"
-                  value={loginForm.password}
-                  onChange={(e) =>
-                    setLoginForm({ ...loginForm, password: e.target.value })
-                  }
-                  className="h-11"
-                />
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                    <Icon name="KeyRound" size={18} className="text-gray-400" />
+                  </div>
+                  <Input
+                    id="login-password"
+                    type="password"
+                    placeholder="Enter your password"
+                    value={loginForm.password}
+                    onChange={(e) =>
+                      setLoginForm({ ...loginForm, password: e.target.value })
+                    }
+                    className="h-14 pl-12 rounded-xl border-gray-200 focus:border-vintage-chocolate focus:ring-vintage-chocolate/20 text-base bg-white shadow-sm"
+                  />
+                </div>
               </div>
               
               <Button
                 onClick={handleLogin}
-                className="w-full h-12 bg-vintage-chocolate hover:bg-vintage-dark-brown font-medium"
+                className="w-full h-14 bg-gradient-to-r from-vintage-chocolate to-vintage-dark-brown hover:from-vintage-dark-brown hover:to-vintage-chocolate text-white font-medium rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 text-base"
                 disabled={!loginForm.identifier || !loginForm.password}
               >
-                <Icon name="LogIn" size={18} className="mr-2" />
-                {t.login}
+                <Icon name="Sparkles" size={20} className="mr-3" />
+                Sign In to Your Account
               </Button>
               
-              <div className="text-center">
-                <Button variant="link" className="text-sm text-muted-foreground">
-                  Забыли пароль?
+              <div className="text-center pt-4">
+                <Button variant="link" className="text-sm text-gray-500 hover:text-vintage-chocolate font-light">
+                  Forgot your password?
                 </Button>
               </div>
             </div>
           </TabsContent>
 
-          <TabsContent value="register" className="space-y-6 mt-6">
-            {/* Registration Benefits */}
-            <div className="bg-gradient-to-r from-vintage-chocolate/5 to-vintage-chocolate/10 p-4 rounded-lg border border-vintage-chocolate/20">
-              <h4 className="font-medium text-sm flex items-center mb-3">
-                <Icon name="Crown" size={16} className="mr-2 text-vintage-chocolate" />
-                Создайте аккаунт и получите
-              </h4>
-              <div className="grid grid-cols-1 gap-2 text-sm">
-                <div className="flex items-center text-muted-foreground">
-                  <Icon name="Gift" size={14} className="mr-2 text-green-600" />
-                  <span className="font-medium text-green-600">5% скидка</span> на первый заказ
+          <TabsContent value="register" className="space-y-8 mt-8">
+            {/* Luxury Registration Benefits */}
+            <div className="relative overflow-hidden bg-gradient-to-br from-vintage-chocolate via-vintage-dark-brown to-vintage-chocolate p-8 rounded-3xl text-white shadow-2xl">
+              <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full -translate-y-20 translate-x-20"></div>
+              <div className="absolute bottom-0 left-0 w-32 h-32 bg-white/5 rounded-full translate-y-16 -translate-x-16"></div>
+              <div className="relative">
+                <div className="flex items-center mb-6">
+                  <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mr-4">
+                    <Icon name="Crown" size={24} className="text-white" />
+                  </div>
+                  <div>
+                    <h4 className="text-xl font-light">Exclusive Membership</h4>
+                    <p className="text-white/80 text-sm">Join our distinguished clientele</p>
+                  </div>
                 </div>
-                <div className="flex items-center text-muted-foreground">
-                  <Icon name="Bell" size={14} className="mr-2 text-blue-600" />
-                  Уведомления о новых коллекциях и распродажах
-                </div>
-                <div className="flex items-center text-muted-foreground">
-                  <Icon name="Star" size={14} className="mr-2 text-yellow-600" />
-                  Система лояльности с накопительными баллами
+                <div className="grid grid-cols-1 gap-4">
+                  <div className="flex items-center">
+                    <Icon name="Gift" size={18} className="mr-4 text-yellow-300" />
+                    <div>
+                      <span className="font-medium">Welcome Gift</span>
+                      <p className="text-white/80 text-sm">15% off your inaugural purchase</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center">
+                    <Icon name="Sparkles" size={18} className="mr-4 text-blue-300" />
+                    <div>
+                      <span className="font-medium">VIP Access</span>
+                      <p className="text-white/80 text-sm">Exclusive previews & limited editions</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center">
+                    <Icon name="Award" size={18} className="mr-4 text-green-300" />
+                    <div>
+                      <span className="font-medium">Loyalty Rewards</span>
+                      <p className="text-white/80 text-sm">Earn points with every purchase</p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
             
-            <div className="space-y-5">
-              {/* Registration Method Selection */}
-              <div className="space-y-3">
-                <Label className="flex items-center font-medium">
-                  <Icon name="Settings" size={16} className="mr-2" />
-                  Выберите способ регистрации
+            <div className="space-y-8">
+              {/* Elegant Registration Method */}
+              <div className="space-y-4">
+                <Label className="text-base font-light text-gray-700 tracking-wide">
+                  Preferred Contact Method
                 </Label>
-                <div className="grid grid-cols-3 gap-2">
-                  <Button
-                    variant={authForm.registrationMethod === "email" ? "default" : "outline"}
-                    size="sm"
+                <div className="grid grid-cols-3 gap-3">
+                  <button
+                    type="button"
                     onClick={() => setAuthForm({ ...authForm, registrationMethod: "email" })}
-                    className={authForm.registrationMethod === "email" ? "bg-vintage-chocolate hover:bg-vintage-dark-brown" : ""}
+                    className={`p-4 rounded-2xl border-2 transition-all duration-200 ${
+                      authForm.registrationMethod === "email"
+                        ? "border-vintage-chocolate bg-vintage-chocolate/5 shadow-md"
+                        : "border-gray-200 bg-white hover:border-gray-300 hover:shadow-sm"
+                    }`}
                   >
-                    <Icon name="Mail" size={16} className="mr-1" />
-                    Email
-                  </Button>
-                  <Button
-                    variant={authForm.registrationMethod === "phone" ? "default" : "outline"}
-                    size="sm"
+                    <div className="flex flex-col items-center space-y-2">
+                      <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                        authForm.registrationMethod === "email"
+                          ? "bg-vintage-chocolate text-white"
+                          : "bg-gray-100 text-gray-500"
+                      }`}>
+                        <Icon name="Mail" size={18} />
+                      </div>
+                      <span className="text-sm font-medium text-gray-700">Email</span>
+                    </div>
+                  </button>
+                  
+                  <button
+                    type="button"
                     onClick={() => setAuthForm({ ...authForm, registrationMethod: "phone" })}
-                    className={authForm.registrationMethod === "phone" ? "bg-vintage-chocolate hover:bg-vintage-dark-brown" : ""}
+                    className={`p-4 rounded-2xl border-2 transition-all duration-200 ${
+                      authForm.registrationMethod === "phone"
+                        ? "border-vintage-chocolate bg-vintage-chocolate/5 shadow-md"
+                        : "border-gray-200 bg-white hover:border-gray-300 hover:shadow-sm"
+                    }`}
                   >
-                    <Icon name="Phone" size={16} className="mr-1" />
-                    {t.phone}
-                  </Button>
-                  <Button
-                    variant={authForm.registrationMethod === "telegram" ? "default" : "outline"}
-                    size="sm"
+                    <div className="flex flex-col items-center space-y-2">
+                      <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                        authForm.registrationMethod === "phone"
+                          ? "bg-vintage-chocolate text-white"
+                          : "bg-gray-100 text-gray-500"
+                      }`}>
+                        <Icon name="Phone" size={18} />
+                      </div>
+                      <span className="text-sm font-medium text-gray-700">Phone</span>
+                    </div>
+                  </button>
+                  
+                  <button
+                    type="button"
                     onClick={() => setAuthForm({ ...authForm, registrationMethod: "telegram" })}
-                    className={authForm.registrationMethod === "telegram" ? "bg-vintage-chocolate hover:bg-vintage-dark-brown" : ""}
+                    className={`p-4 rounded-2xl border-2 transition-all duration-200 ${
+                      authForm.registrationMethod === "telegram"
+                        ? "border-vintage-chocolate bg-vintage-chocolate/5 shadow-md"
+                        : "border-gray-200 bg-white hover:border-gray-300 hover:shadow-sm"
+                    }`}
                   >
-                    <Icon name="MessageCircle" size={16} className="mr-1" />
-                    TG
-                  </Button>
+                    <div className="flex flex-col items-center space-y-2">
+                      <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                        authForm.registrationMethod === "telegram"
+                          ? "bg-vintage-chocolate text-white"
+                          : "bg-gray-100 text-gray-500"
+                      }`}>
+                        <Icon name="MessageCircle" size={18} />
+                      </div>
+                      <span className="text-sm font-medium text-gray-700">Telegram</span>
+                    </div>
+                  </button>
                 </div>
               </div>
 
-              <Separator className="my-4" />
-
-              {/* Name */}
-              <div className="space-y-2">
-                <Label htmlFor="name" className="flex items-center font-medium">
-                  <Icon name="User" size={16} className="mr-2" />
-                  {t.name} <span className="text-red-500 ml-1">*</span>
-                </Label>
-                <Input
-                  id="name"
-                  type="text"
-                  placeholder="Введите ваше полное имя"
-                  value={authForm.name}
-                  onChange={(e) => setAuthForm({ ...authForm, name: e.target.value })}
-                  className="h-11"
-                />
+              <div className="flex items-center my-8">
+                <div className="flex-1 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent"></div>
+                <div className="mx-4 text-xs text-gray-400 font-light tracking-widest">PERSONAL DETAILS</div>
+                <div className="flex-1 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent"></div>
               </div>
 
-              {/* Dynamic primary field based on registration method */}
-              {authForm.registrationMethod === "email" && (
-                <div className="space-y-2">
-                  <Label htmlFor="email" className="flex items-center font-medium">
-                    <Icon name="Mail" size={16} className="mr-2" />
-                    {t.email} <span className="text-red-500 ml-1">*</span>
-                  </Label>
+              {/* Name */}
+              <div className="space-y-3">
+                <Label htmlFor="name" className="text-sm font-medium text-gray-700 tracking-wide">
+                  Full Name
+                </Label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                    <Icon name="User" size={18} className="text-gray-400" />
+                  </div>
                   <Input
-                    id="email"
-                    type="email"
-                    placeholder={t.enterEmail}
-                    value={authForm.email}
-                    onChange={(e) => setAuthForm({ ...authForm, email: e.target.value })}
-                    className="h-11"
+                    id="name"
+                    type="text"
+                    placeholder="Enter your full name"
+                    value={authForm.name}
+                    onChange={(e) => setAuthForm({ ...authForm, name: e.target.value })}
+                    className="h-14 pl-12 rounded-xl border-gray-200 focus:border-vintage-chocolate focus:ring-vintage-chocolate/20 text-base bg-white shadow-sm"
                   />
-                  <p className="text-xs text-muted-foreground">
-                    На этот email будут приходить уведомления о заказах
-                  </p>
+                </div>
+              </div>
+
+              {/* Dynamic primary field */}
+              {authForm.registrationMethod === "email" && (
+                <div className="space-y-3">
+                  <Label htmlFor="email" className="text-sm font-medium text-gray-700 tracking-wide">
+                    Email Address
+                  </Label>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                      <Icon name="Mail" size={18} className="text-gray-400" />
+                    </div>
+                    <Input
+                      id="email"
+                      type="email"
+                      placeholder="your.email@domain.com"
+                      value={authForm.email}
+                      onChange={(e) => setAuthForm({ ...authForm, email: e.target.value })}
+                      className="h-14 pl-12 rounded-xl border-gray-200 focus:border-vintage-chocolate focus:ring-vintage-chocolate/20 text-base bg-white shadow-sm"
+                    />
+                  </div>
                 </div>
               )}
 
               {authForm.registrationMethod === "phone" && (
-                <div className="space-y-2">
-                  <Label htmlFor="phone" className="flex items-center font-medium">
-                    <Icon name="Phone" size={16} className="mr-2" />
-                    {t.phone} <span className="text-red-500 ml-1">*</span>
+                <div className="space-y-3">
+                  <Label htmlFor="phone" className="text-sm font-medium text-gray-700 tracking-wide">
+                    Phone Number
                   </Label>
-                  <Input
-                    id="phone"
-                    type="tel"
-                    placeholder={t.enterPhone}
-                    value={authForm.phone}
-                    onChange={(e) => setAuthForm({ ...authForm, phone: e.target.value })}
-                    className="h-11"
-                  />
-                  <p className="text-xs text-muted-foreground">
-                    Для SMS-уведомлений о статусе заказа
-                  </p>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                      <Icon name="Phone" size={18} className="text-gray-400" />
+                    </div>
+                    <Input
+                      id="phone"
+                      type="tel"
+                      placeholder="+1 (555) 123-4567"
+                      value={authForm.phone}
+                      onChange={(e) => setAuthForm({ ...authForm, phone: e.target.value })}
+                      className="h-14 pl-12 rounded-xl border-gray-200 focus:border-vintage-chocolate focus:ring-vintage-chocolate/20 text-base bg-white shadow-sm"
+                    />
+                  </div>
                 </div>
               )}
 
               {authForm.registrationMethod === "telegram" && (
-                <div className="space-y-2">
-                  <Label htmlFor="telegram" className="flex items-center font-medium">
-                    <Icon name="MessageCircle" size={16} className="mr-2" />
-                    {t.telegram} <span className="text-red-500 ml-1">*</span>
+                <div className="space-y-3">
+                  <Label htmlFor="telegram" className="text-sm font-medium text-gray-700 tracking-wide">
+                    Telegram Username
                   </Label>
-                  <Input
-                    id="telegram"
-                    type="text"
-                    placeholder={t.enterTelegram}
-                    value={authForm.telegram}
-                    onChange={(e) => setAuthForm({ ...authForm, telegram: e.target.value })}
-                    className="h-11"
-                  />
-                  <p className="text-xs text-muted-foreground">
-                    Для быстрых уведомлений в Telegram
-                  </p>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                      <Icon name="MessageCircle" size={18} className="text-gray-400" />
+                    </div>
+                    <Input
+                      id="telegram"
+                      type="text"
+                      placeholder="@username"
+                      value={authForm.telegram}
+                      onChange={(e) => setAuthForm({ ...authForm, telegram: e.target.value })}
+                      className="h-14 pl-12 rounded-xl border-gray-200 focus:border-vintage-chocolate focus:ring-vintage-chocolate/20 text-base bg-white shadow-sm"
+                    />
+                  </div>
                 </div>
               )}
 
-              {/* Optional fields */}
-              <details className="space-y-2 border border-muted rounded-lg p-4">
-                <summary className="cursor-pointer text-sm font-medium flex items-center">
-                  <Icon name="Plus" size={16} className="mr-2" />
-                  Дополнительные контакты (необязательно)
-                </summary>
-                <div className="space-y-3 pt-4">
-                  {authForm.registrationMethod !== "email" && (
-                    <div className="space-y-2">
-                      <Label htmlFor="reg-email" className="flex items-center">
-                        <Icon name="Mail" size={14} className="mr-2" />
-                        {t.email}
-                      </Label>
-                      <Input
-                        id="reg-email"
-                        type="email"
-                        placeholder={t.enterEmail}
-                        value={authForm.email}
-                        onChange={(e) => setAuthForm({ ...authForm, email: e.target.value })}
-                        className="h-10"
-                      />
-                    </div>
-                  )}
-                  {authForm.registrationMethod !== "phone" && (
-                    <div className="space-y-2">
-                      <Label htmlFor="reg-phone" className="flex items-center">
-                        <Icon name="Phone" size={14} className="mr-2" />
-                        {t.phone}
-                      </Label>
-                      <Input
-                        id="reg-phone"
-                        type="tel"
-                        placeholder={t.enterPhone}
-                        value={authForm.phone}
-                        onChange={(e) => setAuthForm({ ...authForm, phone: e.target.value })}
-                        className="h-10"
-                      />
-                    </div>
-                  )}
-                  {authForm.registrationMethod !== "telegram" && (
-                    <div className="space-y-2">
-                      <Label htmlFor="reg-telegram" className="flex items-center">
-                        <Icon name="MessageCircle" size={14} className="mr-2" />
-                        {t.telegram}
-                      </Label>
-                      <Input
-                        id="reg-telegram"
-                        type="text"
-                        placeholder={t.enterTelegram}
-                        value={authForm.telegram}
-                        onChange={(e) => setAuthForm({ ...authForm, telegram: e.target.value })}
-                        className="h-10"
-                      />
-                    </div>
-                  )}
-                </div>
-              </details>
+
 
               {/* Password Section */}
-              <div className="bg-muted/20 p-4 rounded-lg space-y-4">
-                <h4 className="font-medium text-sm flex items-center">
-                  <Icon name="Shield" size={16} className="mr-2" />
-                  Безопасность аккаунта
-                </h4>
+              <div className="space-y-6">
+                <div className="flex items-center">
+                  <div className="flex-1 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent"></div>
+                  <div className="mx-4 text-xs text-gray-400 font-light tracking-widest">SECURITY</div>
+                  <div className="flex-1 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent"></div>
+                </div>
                 
-                <div className="space-y-2">
-                  <Label htmlFor="password" className="flex items-center font-medium">
-                    <Icon name="Lock" size={16} className="mr-2" />
-                    {t.password} <span className="text-red-500 ml-1">*</span>
+                <div className="space-y-3">
+                  <Label htmlFor="password" className="text-sm font-medium text-gray-700 tracking-wide">
+                    Create Password
                   </Label>
-                  <Input
-                    id="password"
-                    type="password"
-                    placeholder="Создайте надежный пароль"
-                    value={authForm.password}
-                    onChange={(e) => setAuthForm({ ...authForm, password: e.target.value })}
-                    className="h-11"
-                  />
-                  <p className="text-xs text-muted-foreground">
-                    Минимум 6 символов, используйте буквы и цифры
-                  </p>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                      <Icon name="Lock" size={18} className="text-gray-400" />
+                    </div>
+                    <Input
+                      id="password"
+                      type="password"
+                      placeholder="Create a secure password"
+                      value={authForm.password}
+                      onChange={(e) => setAuthForm({ ...authForm, password: e.target.value })}
+                      className="h-14 pl-12 rounded-xl border-gray-200 focus:border-vintage-chocolate focus:ring-vintage-chocolate/20 text-base bg-white shadow-sm"
+                    />
+                  </div>
                 </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="confirmPassword" className="flex items-center font-medium">
-                    <Icon name="ShieldCheck" size={16} className="mr-2" />
-                    {t.confirmPassword} <span className="text-red-500 ml-1">*</span>
+                <div className="space-y-3">
+                  <Label htmlFor="confirmPassword" className="text-sm font-medium text-gray-700 tracking-wide">
+                    Confirm Password
                   </Label>
-                  <Input
-                    id="confirmPassword"
-                    type="password"
-                    placeholder="Повторите пароль"
-                    value={authForm.confirmPassword}
-                    onChange={(e) => setAuthForm({ ...authForm, confirmPassword: e.target.value })}
-                    className="h-11"
-                  />
-                  {authForm.confirmPassword && authForm.password !== authForm.confirmPassword && (
-                    <p className="text-xs text-red-500 flex items-center">
-                      <Icon name="AlertCircle" size={12} className="mr-1" />
-                      Пароли не совпадают
-                    </p>
-                  )}
-                  {authForm.confirmPassword && authForm.password === authForm.confirmPassword && (
-                    <p className="text-xs text-green-600 flex items-center">
-                      <Icon name="CheckCircle" size={12} className="mr-1" />
-                      Пароли совпадают
-                    </p>
-                  )}
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                      <Icon name="ShieldCheck" size={18} className="text-gray-400" />
+                    </div>
+                    <Input
+                      id="confirmPassword"
+                      type="password"
+                      placeholder="Confirm your password"
+                      value={authForm.confirmPassword}
+                      onChange={(e) => setAuthForm({ ...authForm, confirmPassword: e.target.value })}
+                      className="h-14 pl-12 rounded-xl border-gray-200 focus:border-vintage-chocolate focus:ring-vintage-chocolate/20 text-base bg-white shadow-sm"
+                    />
+                    {authForm.confirmPassword && (
+                      <div className="absolute inset-y-0 right-0 pr-4 flex items-center">
+                        {authForm.password === authForm.confirmPassword ? (
+                          <Icon name="CheckCircle" size={18} className="text-green-500" />
+                        ) : (
+                          <Icon name="XCircle" size={18} className="text-red-500" />
+                        )}
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
 
               {/* Terms and Register Button */}
-              <div className="space-y-4">
-                <div className="bg-muted/20 p-3 rounded-lg">
-                  <p className="text-xs text-muted-foreground text-center">
-                    Создавая аккаунт, вы соглашаетесь с{" "}
-                    <Button variant="link" className="h-auto p-0 text-xs underline">
-                      Пользовательским соглашением
+              <div className="space-y-6 pt-4">
+                <div className="text-center">
+                  <p className="text-xs text-gray-500 leading-relaxed">
+                    By creating an account, you agree to our{" "}
+                    <Button variant="link" className="h-auto p-0 text-xs text-vintage-chocolate hover:text-vintage-dark-brown underline-offset-2">
+                      Terms of Service
                     </Button>
-                    {" "}и{" "}
-                    <Button variant="link" className="h-auto p-0 text-xs underline">
-                      Политикой конфиденциальности
+                    {" "}and{" "}
+                    <Button variant="link" className="h-auto p-0 text-xs text-vintage-chocolate hover:text-vintage-dark-brown underline-offset-2">
+                      Privacy Policy
                     </Button>
                   </p>
                 </div>
                 
                 <Button
                   onClick={handleRegister}
-                  className="w-full h-12 bg-vintage-chocolate hover:bg-vintage-dark-brown font-medium"
+                  className="w-full h-16 bg-gradient-to-r from-vintage-chocolate to-vintage-dark-brown hover:from-vintage-dark-brown hover:to-vintage-chocolate text-white font-medium rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 text-lg"
                   disabled={
                     !authForm.name ||
                     !authForm.password ||
@@ -488,8 +522,8 @@ export default function AuthDialog({
                     (authForm.registrationMethod === "telegram" && !authForm.telegram)
                   }
                 >
-                  <Icon name="UserPlus" size={18} className="mr-2" />
-                  {t.createAccount}
+                  <Icon name="Crown" size={22} className="mr-3" />
+                  Join Our Exclusive Club
                 </Button>
               </div>
             </div>
