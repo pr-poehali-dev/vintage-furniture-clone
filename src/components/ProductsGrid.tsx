@@ -179,20 +179,7 @@ export default function ProductsGrid({
                   Премиальное качество и элегантный дизайн.
                 </p>
 
-                {/* Color Options - Compact */}
-                <div className="space-y-1 pt-1">
-                  <span className="text-xs text-muted-foreground tracking-wider">
-                    ЦВЕТА
-                  </span>
-                  <div className="flex items-center space-x-1.5">
-                    <div className="w-4 h-4 bg-neutral-800 rounded-full border border-border/40 hover:scale-110 transition-transform cursor-pointer"></div>
-                    <div className="w-4 h-4 bg-neutral-600 rounded-full border border-border/40 hover:scale-110 transition-transform cursor-pointer"></div>
-                    <div className="w-4 h-4 bg-neutral-400 rounded-full border border-border/40 hover:scale-110 transition-transform cursor-pointer"></div>
-                    <span className="text-xs text-muted-foreground ml-1">
-                      +2
-                    </span>
-                  </div>
-                </div>
+
               </div>
             </div>
           ))}
